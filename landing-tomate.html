@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tómate Tomate — Aliméntate Conscientemente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --naranja: #F86940;
+  --verde: #40A629;
+  --amarillo: #FFF4D8;
+  --amarillo-oscuro: #FEE7B1;
+  --texto: #2a2a2a;
+  --texto-suave: #666;
+  --font-display: 'Fraunces', serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--amarillo); color: var(--texto); overflow-x: hidden; }
+
+/* DOTS NAVEGACIÓN */
+.dots-nav { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; z-index: 8888; }
+.dot { width: 11px; height: 11px; border-radius: 50%; background: rgba(0,0,0,0.18); cursor: pointer; transition: all 0.3s ease; border: none; }
+.dot.active { background: var(--naranja); transform: scale(1.35); }
+@media (max-width: 480px) { .dots-nav { right: 8px; } .dot { width: 8px; height: 8px; } }
+
+/* SECCIONES */
+.slide { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+.slide-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 40px 40px 60px; width: 100%; }
+@media (max-width: 1027px) { .slide-content { padding: 60px 20px 50px; } }
+@media (max-width: 768px)  { .slide-content { padding: 40px 20px 50px; } }
+
+/* SECCIÓN 1 — HERO */
+#hero { background: var(--amarillo); overflow: visible;}
+.parallax-container { position: absolute; top: 0px; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+.v-layer { position: absolute; height: auto; will-change: transform; }
+.hero-content { max-width: 600px; margin: 0 auto; text-align: center; }
+#hero .slide-content { padding-top: 120px;}
+.hero-eyebrow { display: inline-block; background: var(--naranja); color: white; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 20px; }
+.hero-title { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; color: var(--texto); margin-bottom: 16px; }
+.hero-title span { color: var(--naranja); }
+.hero-desc { font-size: clamp(0.95rem, 2vw, 1.1rem); color: var(--texto-suave); line-height: 1.7; margin-bottom: 32px; max-width: 500px; text-align: center; margin-left: auto; margin-right: auto; }
+.btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--naranja); color: white; font-family: var(--font-body); font-size: 1rem; font-weight: 600; padding: 14px 28px; border-radius: 50px; border: none; cursor: pointer; text-decoration: none; transition: all 0.25s ease; box-shadow: 0 4px 15px rgba(248,105,64,0.35); }
+.btn-primary:hover { background: #e85a30; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(248,105,64,0.4); }
+.btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: var(--verde); color: white; font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; padding: 12px 24px; border-radius: 50px; border: none; cursor: pointer; text-decoration: none; transition: all 0.25s ease; }
+.btn-secondary:hover { background: #37921f; transform: translateY(-2px); }
+.zona-badge { display: flex; width: fit-content; align-items: center; gap: 6px; background: transparent; border: none; padding: 0; margin: 16px auto 0; font-size: 20px; color: var(--texto-suave); font-style: italic; }
+.zona-badge i { color: var(--naranja); }
+@media (max-width: 1027px) { #hero .slide-content { padding-top: 160px; } }
+@media (max-width: 768px)  { #hero .slide-content { padding-top: 140px; } }
+
+/* SECCIÓN 2 — PRODUCTOS */
+#productos { background: white; }
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--naranja); margin-bottom: 10px; }
+.section-title { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+.section-desc { font-size: 1rem; color: var(--texto-suave); line-height: 1.6; margin-bottom: 36px; max-width: 560px; }
+.categorias { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
+.cat-btn { display: flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 50px; border: 2px solid transparent; cursor: pointer; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; transition: all 0.2s ease; }
+.cat-btn.activa { background: var(--naranja); color: white; border-color: var(--naranja); }
+.cat-btn.proxima { background: transparent; color: #aaa; border-color: #ddd; cursor: default; }
+.cat-btn.proxima::after { content: 'Próximamente'; font-size: 9px; background: #f0f0f0; color: #999; padding: 2px 6px; border-radius: 8px; margin-left: 4px; }
+.carrusel-wrap { display: flex; align-items: center; gap: 8px; margin-bottom: 28px; }
+.contenedor-carrusel { display: flex; overflow-x: auto; scroll-behavior: smooth; gap: 16px; padding: 12px 4px; flex: 1; }
+.contenedor-carrusel::-webkit-scrollbar { display: none; }
+.item-carrusel { flex: 0 0 140px; text-align: center; cursor: pointer; transition: transform 0.25s ease; }
+.item-carrusel img { width: 110px; height: 110px; object-fit: cover; border-radius: 50%; border: 3px solid var(--amarillo-oscuro); margin-bottom: 8px; transition: border-color 0.2s; }
+.item-carrusel:hover img { border-color: var(--naranja); }
+.item-carrusel:hover { transform: scale(1.05); }
+.item-carrusel span { font-size: 0.85rem; font-weight: 600; color: var(--texto); display: block; }
+.btn-carrusel { background: transparent; border: 2px solid var(--naranja); color: var(--naranja); width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; }
+.btn-carrusel:hover { background: var(--naranja); color: white; }
+
+@media (max-width: 1027px) {
+  .parallax-container { top: 120px; }
+}
+@media (max-width: 480px) {
+  .parallax-container { top: 100px; }
+}
+
+/* SECCIÓN 3 — CONFIANZA */
+#confianza { background: var(--amarillo); }
+.pasos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-bottom: 36px; }
+.paso { background: white; border-radius: 16px; padding: 24px 20px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.06); transition: transform 0.2s; }
+.paso:hover { transform: translateY(-4px); }
+.paso-num { width: 40px; height: 40px; border-radius: 50%; background: var(--naranja); color: white; font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+.paso-icon { font-size: 2rem; margin-bottom: 10px; }
+.paso h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.paso p { font-size: 0.85rem; color: var(--texto-suave); line-height: 1.5; }
+@media (min-width: 768px) { .pasos-grid { grid-template-columns: repeat(4, 1fr); } }
+.pagos-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
+.pago-chip { display: flex; align-items: center; gap: 8px; background: white; border: 1px solid #eee; border-radius: 30px; padding: 8px 16px; font-size: 0.85rem; font-weight: 600; color: var(--texto); }
+.pago-chip i { font-size: 1rem; }
+.pago-chip.efectivo i { color: #27ae60; }
+.pago-chip.qr i { color: #8e44ad; }
+.pago-chip.tarjeta i { color: #2980b9; }
+.nota-cita { background: #fff8f0; border: 1px solid rgba(248,105,64,0.2); border-left: 4px solid var(--naranja); border-radius: 8px; padding: 14px 18px; margin-top: 24px; font-size: 0.9rem; color: var(--texto); display: flex; align-items: flex-start; gap: 10px; }
+.nota-cita i { color: var(--naranja); margin-top: 2px; flex-shrink: 0; }
+.zonas-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+.zona-tag { background: var(--naranja); color: white; font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 20px; }
+
+/* SECCIÓN 4 — MARCA */
+#marca { background: var(--naranja); color: white; }
+#marca .section-label { color: rgba(255,255,255,0.7); }
+#marca .section-title { color: white; }
+#marca .section-desc { color: rgba(255,255,255,0.85); }
+.hoja-animada { position: absolute; opacity: 0.15; animation: hojaCAer 6s ease-in-out infinite; transform-origin: center; pointer-events: none; }
+.hoja-animada:nth-child(1) { top: -40px; left: 15%; animation-delay: 0s; }
+.hoja-animada:nth-child(2) { top: -40px; right: 20%; animation-delay: 2s; }
+.hoja-animada:nth-child(3) { top: -40px; left: 50%; animation-delay: 4s; }
+.hoja-animada:nth-child(4) { top: 10%; right: 5%; animation-delay: 1s; opacity: 0.1; }
+.hoja-animada:nth-child(5) { top: 5%; left: 5%; animation-delay: 3s; opacity: 0.1; }
+@keyframes hojaCAer {
+  0%   { transform: translateY(-60px) rotate(0deg);   opacity: 0; }
+  20%  { opacity: 0.18; }
+  80%  { opacity: 0.12; }
+  100% { transform: translateY(110vh) rotate(180deg); opacity: 0; }
+}
+
+/* SECCIÓN 5 — BLOG */
+#blog { background: var(--amarillo-oscuro); }
+.ejes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 40px; }
+.eje-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.07); transition: transform 0.25s, box-shadow 0.25s; cursor: pointer; }
+.eje-card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(0,0,0,0.12); }
+.eje-img { width: 100%; height: 180px; object-fit: cover; }
+.eje-body { padding: 20px; text-align: center; }
+.eje-body h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; margin-bottom: 4px; }
+.eje-body span { font-size: 0.85rem; color: var(--texto-suave); font-weight: 500; }
+.suscripcion-box { background: white; border-radius: 20px; padding: 36px 40px; text-align: center; max-width: 560px; margin: 0 auto; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+.suscripcion-box h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+.suscripcion-box p { font-size: 0.9rem; color: var(--texto-suave); margin-bottom: 20px; }
+.form-row { display: flex; gap: 10px; }
+.form-row input { flex: 1; padding: 12px 18px; border: 1.5px solid #e0e0e0; border-radius: 50px; font-family: var(--font-body); font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+.form-row input:focus { border-color: var(--verde); }
+@media (max-width: 480px) { .form-row { flex-direction: column; } }
+
+/* ANIMACIÓN ENTRADA */
+.fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* Estilos de encabezado */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+.tt-header, .tt-header *{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+.tt-header{
+font-family: Arial, sans-serif;
+  background-color: #FFF4D8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Estas líneas lo fijan arriba */
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999; 
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.tt-header-container{
+  width:100%;
+  max-width:1200px;
+  margin:0 auto;
+}
+.tt-logo-menu-container{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+}
+.tt-logo-container{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  position:absolute;
+  z-index:10;
+}
+
+.tt-logo{
+  width:100%;
+  undefined:undefined;
+  max-width:200px;
+  margin-bottom:5px;
+}
+.tt-subtitle{
+  font-size:14px;
+  color:#666;
+  margin-bottom:5px;
+}
+.tt-menu-container{
+  width:100%;
+  display:flex;
+  justify-content:center;
+}
+.tt-menu-box{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.tt-menu-item{
+  text-decoration:none;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  color:#333;
+  font-size:12px;
+  padding:10px;
+  transition:transform 0.3s ease;
+}
+.tt-menu-item:hover{
+  transform:scale(1.1);
+}
+.tt-menu-item img{
+  max-width:30px;
+  margin-bottom:5px;
+}
+#ixz46{
+  margin:0px 0px 5px 0px;
+  max-width:600px;
+}
+#iotdk{
+  padding:10px 20px 10px 20px;
+}
+#in3ff{
+  padding:10px 40px 10px 20px;
+}
+#i7ygl{
+  padding:10px 20px 10px 40px;
+}
+#i7nlj{
+  padding:10px 20px 10px 20px;
+}
+#iy471{
+  max-width:auto;
+}
+@media (min-width: 1028px){
+  .tt-logo-menu-container{
+    height:100px;
+    position:relative;
+  }
+  .tt-logo-container{
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+  }
+  .tt-menu-container{
+    position:absolute;
+    width:100%;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    justify-content:space-between;
+  }
+  .tt-menu-box{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    padding:0 50px;
+  }
+  .tt-menu-item{
+    font-size:14px;
+  }
+  .tt-menu-item img{
+    max-width:70px;
+  }
+  .slide-1 {
+  /* Ajusta este valor según la altura real de tu header */
+  padding-top: 120px !important; 
+}
+}
+@media (max-width: 1027px){
+  .tt-header{
+    padding-top:70px;
+  }
+  .tt-logo-container{
+    position:absolute;
+    top:-50px;
+    left:50%;
+    transform:translateX(-50%);
+  }
+  .tt-logo{
+    max-width:100px;
+  }
+  .tt-subtitle{
+    font-size:12px;
+  }
+  .tt-logo-menu-container{
+    flex-direction:column;
+  }
+  .tt-menu-container{
+    width:100%;
+    margin-top:10px;
+  }
+  .tt-menu-box{
+    gap:15px;
+    flex-wrap:wrap;
+  }
+  .tt-menu-item{
+    font-size:10px;
+  }
+  .tt-menu-item img{
+    max-width:20px;
+  }
+}
+
+  }
+  #ixz46{
+    max-width:400px;
+  }
+  #iy471{
+    max-width:60px;
+  }
+  #ikece{
+    max-width:60px;
+  }
+  #iz3tj{
+    max-width:60px;
+  }
+  #iiqrm{
+    max-width:60px;
+  }
+  #tt-menu-box{
+    padding:0px 0px 0px 0px;
+    width:100%;
+  }
+  .tt-logo{
+    max-width:200px;
+  }
+  .tt-subtitle{
+    font-size:14px;
+  }
+  #in3ff{
+    padding:10px 20px 10px 20px;
+  }
+  #i7ygl{
+    padding:10px 20px 10px 20px;
+  }
+}
+@media (max-width: 992px){
+  #tt-logo-container{
+    top:-54px;
+  }
+  #ixz46{
+    max-width:400px;
+  }
+  #iy471{
+    max-width:60px;
+  }
+  #ikece{
+    max-width:60px;
+  }
+  #iz3tj{
+    max-width:60px;
+  }
+  #iiqrm{
+    max-width:60px;
+  }
+  #tt-menu-box{
+    padding:0px 0px 0px 0px;
+    width:100%;
+  }
+  .tt-logo{
+    max-width:200px;
+  }
+  .tt-subtitle{
+    font-size:14px;
+  }
+  #in3ff{
+    padding:10px 20px 10px 20px;
+  }
+  #i7ygl{
+    padding:10px 20px 10px 20px;
+  }
+}
+@media (max-width: 480px){
+  #tt-logo-container{
+    top:-60px
+  }
+  #iy471{
+    max-width:40px;
+  }
+  #ikece{
+    max-width:40px;
+  }
+  #iz3tj{
+    max-width:40px;
+  }
+  #iiqrm{
+    max-width:40px;
+  }
+  .tt-logo{
+    max-width:150px;
+    width:100%;
+    margin:0px 0px 1px 0px;
+  }
+  .tt-subtitle{
+    font-size:12px;
+  }
+  #in3ff{
+    padding:10px 10px 10px 10px;
+  }
+  #i7nlj{
+    padding:10px 10px 10px 10px;
+  }
+  #iotdk{
+    padding:10px 10px 10px 10px;
+  }
+  #i7ygl{
+    padding:10px 10px 10px 10px;
+  }
+}
+</style>
+<style>
+/* Estilos de pie de pagina */
+.tt-footer { background: #FEE7B1; border-top: 5px solid var(--naranja); }
+.tt-footer-inner { max-width: 1200px; margin: 0 auto; padding: 40px 30px 20px; }
+.tt-footer-top { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; padding-bottom: 30px; border-bottom: 1px solid rgba(248,105,64,0.2); }
+.tt-footer-brand img { height: 55px; margin-bottom: 10px; display: block; }
+.tt-footer-brand p { font-size: 13px; color: #666; line-height: 1.6; max-width: 210px; }
+.tt-footer-col h4 { font-size: 11px; font-weight: 700; color: var(--naranja); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
+.tt-footer-col p, .tt-footer-col li { font-size: 13px; color: #555; line-height: 1.9; list-style: none; }
+.tt-footer-col ul { padding: 0; }
+.zona-tag-sm { display: inline-block; background: var(--naranja); color: white; font-size: 11px; padding: 3px 10px; border-radius: 20px; margin: 2px 2px 2px 0; font-weight: 600; }
+.email-link { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; text-decoration: none; margin-bottom: 6px; transition: color 0.2s; }
+.email-link:hover { color: var(--naranja); }
+.email-link i { color: var(--naranja); width: 16px; }
+.social-row { display: flex; gap: 8px; margin-top: 10px; }
+.soc-icon { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 14px; transition: transform 0.2s, opacity 0.2s; }
+.soc-icon:hover { transform: scale(1.1); opacity: 0.9; }
+.soc-icon.fb { background: #3b5998; }
+.soc-icon.ig { background: #c13584; }
+.soc-icon.wa { background: #25D366; }
+.soc-icon.th { background: #0a0a0a; }
+.tt-footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 18px; flex-wrap: wrap; gap: 10px; }
+.tt-footer-bottom p { font-size: 12px; color: #999; }
+.footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.footer-links a { font-size: 12px; color: #999; text-decoration: none; }
+.footer-links a:hover { color: var(--naranja); }
+ 
+@media (max-width: 768px) {
+  .tt-footer-top { grid-template-columns: 1fr; gap: 24px; }
+  .tt-footer-brand p { max-width: 100%; }
+  .tt-footer-bottom { flex-direction: column; align-items: center; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tt-footer-top { grid-template-columns: 1fr 1fr; }
+  .tt-footer-brand { grid-column: 1 / -1; }
+}
+</style>
+</head>
+<body>
+
+<!-- Encabezado -->  
+    <div class="tt-header-container">
+      <header id="tt-header" title="Header" class="tt-header">
+        <div class="tt-logo-menu-container">
+          <div id="tt-logo-container" title="Logo" class="tt-logo-container">
+            <a id="i02g1" title="Tómate Tomate" href="landing-tomate.html"><img src="https://drive.google.com/thumbnail?id=19u00Nz1w-MgIUmQbGZnLZ_uyMq1hmgaj" alt="Tómate Tomate" id="ixz46" class="tt-logo"/><div id="tt-subtitle" title="Copi" class="tt-subtitle">ALIMÉNTATE CONSCIENTEMENTE
+              </div></a>
+          </div>
+          <nav id="tt-menu-container" title="menu" class="tt-menu-container">
+            <div id="tt-menu-box" title="menu box" class="tt-menu-box">
+              <a href="Carro Simple.html" id="iotdk" title="Ordena" class="tt-menu-item"><img src="https://drive.google.com/thumbnail?id=12BHneK61YiKBbe3PgYQbkH4Ckq60zeU_" alt="Icono Menú" id="iy471"/></a>
+              <a href="tomate-tomate-listado_articulos.html" id="in3ff" title="Consulta" class="tt-menu-item"><img src="https://drive.google.com/thumbnail?id=1ppwngAzGOXeu3IVTNPJ0LfpRyOzh4tiD" alt="Icono Blog" id="ikece"/></a>
+              <a href="Nosotros.html" id="i7ygl" title="Nosotros" class="tt-menu-item"><img src="https://drive.google.com/thumbnail?id=1DbH7_QhcEksXbgGEeBZ59lN9QsrbuPXX" alt="Icono Nosotros" id="iz3tj"/></a>
+              <a href="Contactanos.html" id="i7nlj" title="Contactanos" class="tt-menu-item"><img src="https://drive.google.com/thumbnail?id=1jM8BjZIPpmBvlPpvWghDEPdfqeWVs7iB" alt="Icono Contáctanos" id="iiqrm"/></a>
+            </div>
+          </nav>
+        </div>
+      </header>
+    </div>
+
+<!-- DOTS DE NAVEGACIÓN -->
+<div class="dots-nav" id="dots-nav">
+  <button class="dot active" data-slide="0"></button>
+  <button class="dot" data-slide="1"></button>
+  <button class="dot" data-slide="2"></button>
+  <button class="dot" data-slide="3"></button>
+  <button class="dot" data-slide="4"></button>
+</div>
+
+<!-- SECCIÓN 1 — HERO -->
+<section class="slide" id="hero">
+  <div class="parallax-container" id="parallax-viewport"></div>
+  <div class="slide-content">
+    <div class="hero-content fade-in">
+      <span class="hero-eyebrow">🥗 Domicilios · Toberín, Bogotá</span>
+      <h1 class="hero-title">ALIMENTOS CON<br><span>FRUTAS Y VEGETALES</span><br>FRESCOS</h1>
+      <p class="hero-desc">Producimos, comercializamos y asesoramos sobre alimentos con componentes funcionales para prevenir o reducir enfermedades crónicas, entregados con sostenibilidad ambiental.</p>
+      <a href="#productos" class="btn-primary">Explora nuestros productos <i class="fas fa-arrow-right"></i></a>
+      <div class="zona-badge">
+        <i class="fas fa-map-marker-alt"></i>
+        San Cristóbal · Altablanca · Santa Teresa
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECCIÓN 2 — PRODUCTOS -->
+<section class="slide" id="productos">
+  <div class="slide-content">
+    <p class="section-label fade-in">Nuestro menú</p>
+    <h2 class="section-title fade-in">Elige tu complemento<br>de almuerzo perfecto</h2>
+    <p class="section-desc fade-in">Preparado con ingredientes frescos del día. Tu almuerzo, pero mejor.</p>
+    <div class="categorias fade-in">
+      <button class="cat-btn activa">🥗 Ensaladas</button>
+      <button class="cat-btn proxima">🍉 Picados de fruta</button>
+      <button class="cat-btn proxima">🍰 Postres saludables</button>
+    </div>
+    <div class="carrusel-wrap fade-in">
+      <button class="btn-carrusel" id="btn-prev">&#8249;</button>
+    <div class="contenedor-carrusel" id="contenedor-carrusel">
+      	<a href="Ensalada Vegetal.html" class="item-carrusel">	
+        <img src="https://drive.google.com/thumbnail?id=1FK3vbyCeo8N3GGteel1GBAl1OPYGCb6u" alt="Vegetal" />
+        <span>Vegetal</span>
+	</a>
+      <a href="Ensalada Tropical.html" class="item-carrusel">
+        <img src="https://drive.google.com/thumbnail?id=1niOwiIeH4V37vj67CCjC91UZGWcazr8B" alt="Tropical" />
+        <span>Tropical</span>
+      </a>
+      <a href="Ensalada Papa.html" class="item-carrusel">
+        <img src="https://drive.google.com/thumbnail?id=1viTqOGCVjtIZHCNMhxORu0D5Y6OPPKr6" alt="Papa" />
+        <span>Papa</span>
+      </a>
+      <a href="Ensalada Roja.html" class="item-carrusel">
+        <img src="https://drive.google.com/thumbnail?id=1pLuDs5hobY3USvw0bpY1OgO9Pj9hNo4p" alt="Roja" />
+        <span>Roja</span>
+      </a>
+      <a href="Guacamole.html" class="item-carrusel">
+        <img src="https://drive.google.com/thumbnail?id=1aEsXcTEJd7_9_ks8equswCOTDDzoymXn" alt="Guacamole" />
+        <span>Guacamole</span>
+      </a>
+      <a href="Ensalada Hiposodica 1.html" class="item-carrusel">
+        <img src="https://drive.google.com/thumbnail?id=13b55jCap_zcV7mJPC7IxRYqGfngc4IPm" alt="Baja en sodio 1" />
+        <span>Baja en sodio 1</span>
+      </a>
+      <a href="Ensalada Hiposodica 2.html" class="item-carrusel">
+        <img src="https://drive.google.com/thumbnail?id=17ssULvbja-BC9MzG1wMnt3EY5yfd5abN" alt="Baja en sodio 2" />
+        <span>Baja en sodio 2</span>
+      </a>
+      <a href="Ensalada Hipocalorica 1.html" class="item-carrusel">
+        <img src="https://drive.google.com/thumbnail?id=1BAk5quZBc9V_ITZHYeSTP5OCpBsZ0U3s" alt="Baja en azucar 1" />
+        <span>Baja en azucar 1</span>
+      </a>
+    </div>
+      <button class="btn-carrusel" id="btn-next">&#8250;</button>
+    </div>
+    <a href="Carro Simple.html" class="btn-primary fade-in" style="display:inline-flex;">Ver menú completo <i class="fas fa-arrow-right"></i></a>
+  </div>
+</section>
+
+<!-- SECCIÓN 3 — CONFIANZA -->
+<section class="slide" id="confianza">
+  <div class="slide-content">
+    <p class="section-label fade-in">Así funciona</p>
+    <h2 class="section-title fade-in">Pedir es muy fácil</h2>
+    <p class="section-desc fade-in">Solo necesitas WhatsApp y un poco de anticipación.</p>
+    <div class="pasos-grid">
+      <div class="paso fade-in">
+        <div class="paso-num">1</div>
+        <div class="paso-icon">🥗</div>
+        <h3>Elige tu ensalada</h3>
+        <p>Explora el menú y selecciona el tamaño y la cantidad que quieres.</p>
+      </div>
+      <div class="paso fade-in">
+        <div class="paso-num">2</div>
+        <div class="paso-icon">📲</div>
+        <h3>Escríbenos por WhatsApp</h3>
+        <p>Envíanos tu pedido con tu dirección en San Cristóbal, Altablanca o Santa Teresa.</p>
+      </div>
+      <div class="paso fade-in">
+        <div class="paso-num">3</div>
+        <div class="paso-icon">📅</div>
+        <h3>Agenda tu entrega</h3>
+        <p>Acordamos el día y la hora de entrega según tu disponibilidad.</p>
+      </div>
+      <div class="paso fade-in">
+        <div class="paso-num">4</div>
+        <div class="paso-icon">🏠</div>
+        <h3>Recibe y disfruta</h3>
+        <p>Te llevamos tu ensalada fresca. Pagas al recibir.</p>
+      </div>
+    </div>
+    <div class="fade-in" style="margin-top:28px;">
+      <p style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--texto-suave);margin-bottom:12px;">Métodos de pago al recibir</p>
+      <div class="pagos-row">
+        <div class="pago-chip efectivo"><i class="fas fa-money-bill-wave"></i> Efectivo</div>
+        <div class="pago-chip qr"><i class="fas fa-qrcode"></i> QR Bre-B</div>
+        <div class="pago-chip tarjeta"><i class="fas fa-credit-card"></i> Datáfono</div>
+      </div>
+    </div>
+    <div class="nota-cita fade-in">
+      <i class="fas fa-clock"></i>
+      <div><strong>Pedidos con anticipación</strong> — Atendemos domicilios y punto fijo. Para garantizar tu pedido fresco y a tiempo, escríbenos con al menos un día de anticipación.</div>
+    </div>
+    <div class="fade-in" style="margin-top:20px;">
+      <p style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--texto-suave);margin-bottom:10px;">Zona de cobertura</p>
+      <div class="zonas-row">
+        <span class="zona-tag">San Cristóbal</span>
+        <span class="zona-tag">Altablanca</span>
+        <span class="zona-tag">Santa Teresa</span>
+        <span style="font-size:12px;color:var(--texto-suave);align-self:center;">· UPZ Toberín, Bogotá</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECCIÓN 4 — MARCA -->
+<section class="slide" id="marca">
+  <svg class="hoja-animada" width="60" height="70" viewBox="0 0 60 70"><path d="M30 5 C50 15,58 35,45 55 C35 68,15 68,8 55 C-2 38,8 15,30 5Z" fill="white"/><path d="M30 5 Q30 35 30 65" stroke="rgba(255,255,255,0.5)" stroke-width="1" fill="none"/><path d="M30 20 Q20 25 12 30" stroke="rgba(255,255,255,0.4)" stroke-width="0.8" fill="none"/><path d="M30 20 Q40 25 48 30" stroke="rgba(255,255,255,0.4)" stroke-width="0.8" fill="none"/></svg>
+  <svg class="hoja-animada" width="50" height="60" viewBox="0 0 60 70"><path d="M30 5 C50 15,58 35,45 55 C35 68,15 68,8 55 C-2 38,8 15,30 5Z" fill="white"/><path d="M30 5 Q30 35 30 65" stroke="rgba(255,255,255,0.5)" stroke-width="1" fill="none"/></svg>
+  <svg class="hoja-animada" width="45" height="55" viewBox="0 0 60 70"><path d="M30 5 C50 15,58 35,45 55 C35 68,15 68,8 55 C-2 38,8 15,30 5Z" fill="white"/><path d="M30 5 Q30 35 30 65" stroke="rgba(255,255,255,0.5)" stroke-width="1" fill="none"/></svg>
+  <svg class="hoja-animada" width="80" height="95" viewBox="0 0 60 70"><path d="M30 5 C50 15,58 35,45 55 C35 68,15 68,8 55 C-2 38,8 15,30 5Z" fill="white"/><path d="M30 5 Q30 35 30 65" stroke="rgba(255,255,255,0.5)" stroke-width="1" fill="none"/></svg>
+  <svg class="hoja-animada" width="35" height="42" viewBox="0 0 60 70"><path d="M30 5 C50 15,58 35,45 55 C35 68,15 68,8 55 C-2 38,8 15,30 5Z" fill="white"/><path d="M30 5 Q30 35 30 65" stroke="rgba(255,255,255,0.5)" stroke-width="1" fill="none"/></svg>
+  <div class="slide-content" style="text-align:center;">
+    <p class="section-label fade-in">Nuestra filosofía</p>
+    <h2 class="section-title fade-in">¿Por qué Tómate Tomate?</h2>
+    <p class="section-desc fade-in" style="margin:0 auto;">No somos solo ensaladas. Somos una apuesta científica por una alimentación que cuida a las personas y al planeta, basada en evidencia y pensada para el contexto colombiano.</p>
+  </div>
+</section>
+
+<!-- SECCIÓN 5 — BLOG + SUSCRIPCIÓN -->
+<section class="slide" id="blog">
+  <div class="slide-content">
+    <p class="section-label fade-in">Nuestro blog</p>
+    <h2 class="section-title fade-in">Nuestros ejes<br>de pensamiento</h2>
+    <p class="section-desc fade-in">Contenido científico sobre alimentación, planeta y bienestar. Sin recetas de abuela — con evidencia.</p>
+    <div class="ejes-grid">
+      <div class="eje-card fade-in">
+        <a href="tomate-tomate-listado_articulos.html" class="eje-img">
+        <img src="https://drive.google.com/thumbnail?id=1YCt96zTauOAAc1kbay1dFa8U7rTQkRF5" alt="Eco Consciencia" class="eje-img">
+        <div class="eje-body"><h3>Eco</h3><span>Consciencia</span></a></div>
+      </div>
+      <div class="eje-card fade-in">
+        <a href="tomate-tomate-listado_articulos.html" class="eje-img">
+         <img src="https://drive.google.com/thumbnail?id=10G5txV0TaG_T4c3KG-TD_F8JaLgJqRjC" alt="Marketing Social" class="eje-img">
+        <div class="eje-body"><h3>Marketing</h3><span>Social</span></a></div>
+      </div>
+      <div class="eje-card fade-in">
+        <a href="tomate-tomate-listado_articulos.html" class="eje-img">
+         <img src="https://drive.google.com/thumbnail?id=1Pt_cwgFtdltr8AktTtW8uQg91hcO7eWn" alt="Psicología Nutrición" class="eje-img">
+        <div class="eje-body"><h3>Psicología</h3><span>Nutrición</span></a></div>
+      </div>
+    </div>
+<div class="suscripcion-box fade-in">
+  <h3>Únete a la comunidad</h3>
+  <p>Recibe artículos científicos sobre alimentación consciente, sostenibilidad y bienestar mental.</p>
+  <form id="newsletter-form" class="form-row">
+    <input type="email" name="email" placeholder="Tu correo electrónico" required>
+    <button class="btn-secondary" type="submit">Unirme</button>
+  </form>
+  <div id="mensaje-exito" style="display:none; color:#40A629; margin-top:10px; font-weight:bold;">
+    ¡Gracias! Te has unido con éxito. 🍃
+  </div>
+</div>
+</section>
+
+
+ <!-- Pie de pagina -->
+     <footer class="tt-footer">
+  <div class="tt-footer-inner">
+    <div class="tt-footer-top">
+      <div class="tt-footer-brand">
+        <a href="#hero"><img src="https://drive.google.com/thumbnail?id=1fM_iYOuVT-tqTnFM2vW6zbgWUkaktxGy" alt="Tómate Tomate"></a>
+        <p>Ensaladas frescas como complemento de tu almuerzo. Ingredientes reales, sabor consciente.</p>
+      </div>
+      <div class="tt-footer-col">
+        <h4>Zona de cobertura</h4>
+        <div style="margin-top:6px;">
+          <span class="zona-tag-sm">San Cristóbal</span>
+          <span class="zona-tag-sm">Altablanca</span>
+          <span class="zona-tag-sm">Santa Teresa</span>
+        </div>
+        <p style="font-size:11px;color:#aaa;margin-top:8px;">Bogotá · UPZ Toberín</p>
+      </div>
+      <div class="tt-footer-col">
+        <h4>Contáctanos</h4>
+        <a href="mailto:clientes.tomatetomate@gmail.com" class="email-link">
+          <i class="fas fa-envelope"></i> clientes.tomatetomate@gmail.com
+        </a>
+        <p style="font-size:12px;color:#aaa;margin-top:4px;">Para alianzas, sugerencias o preguntas generales</p>
+        <h4 style="margin-top:18px;">Síguenos</h4>
+        <div class="social-row">
+          <a href="https://web.facebook.com/tomate.tomate.saludable/" class="soc-icon fb" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/tomate_tomate_saludable" class="soc-icon ig" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://api.whatsapp.com/send/?phone=573196171825" class="soc-icon wa" target="_blank"><i class="fab fa-whatsapp"></i></a>
+         </a>
+        </div>
+      </div>
+    </div>
+    <div class="tt-footer-bottom">
+      <p>© 2026 Tómate Tomate · Todos los derechos reservados</p>
+      <div class="footer-links">
+        <a href="#">Preguntas frecuentes</a>
+        <a href="#">Política de privacidad</a>
+        <a href="#">Términos y condiciones</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  const vegData = [
+    {id:"13TTi4OjTHFJY0GiEZS7_cgw823UYzOQm", x:702, y:180,   w:737, z:1, rot:0,   s:0.2},
+    {id:"1a0kFU-3LBn42Rzy32e1BDY-3_I_z4p-K", x:1234,y:180,   w:203, z:2, rot:0,   s:1.2},
+    {id:"1O1bfYMjmm8D_DVcl0N2a9-z0xbUl5QBg", x:1114,y:216,  w:72,  z:2, rot:0,   s:2.5},
+    {id:"1ADpFQdGyIi2jVZpAJtpcwuSprVqf4Tz7", x:879, y:180,   w:147, z:2, rot:0,   s:3.0},
+    {id:"1AiNPMYIv0oAYV8wTG_ygifXqkY5Fbo4W", x:734, y:303, w:68,  z:2, rot:0,   s:1.8},
+    {id:"1h65wgxTz5Kcgg-PASb-OmDD66-3QPy_P", x:537, y:353, w:85,  z:1, rot:180, s:0.4},
+    {id:"1U9enOo3BciF5KOgOCewgSLekp7hby6ch", x:332, y:180,   w:119, z:2, rot:0,   s:2.2},
+    {id:"1h65wgxTz5Kcgg-PASb-OmDD66-3QPy_P", x:30,  y:215,  w:85,  z:1, rot:0,   s:0.4},
+    {id:"1D6755_91CMvdFaxCO6nq-lzeyHjWTDrQ", x:0,   y:361, w:88,  z:2, rot:0,   s:1.5},
+    {id:"1AiNPMYIv0oAYV8wTG_ygifXqkY5Fbo4W", x:63,  y:719, w:68,  z:2, rot:-90, s:2.0},
+    {id:"1FZzjEyJ2JL1ILbDneQwWATkRJduqRamY", x:0,   y:836, w:768, z:1, rot:0,   s:0.3},
+    {id:"1imtKEfXmmLOr1HoUkFLSthrHJMJZUY_W", x:199, y:942, w:117, z:2, rot:0,   s:3.5},
+    {id:"1qyIvy1HuYw6TiWDCeoS-0CCb9S1ClQm0", x:616, y:842, w:144, z:2, rot:0,   s:2.4},
+    {id:"1O1bfYMjmm8D_DVcl0N2a9-z0xbUl5QBg", x:936, y:892, w:72,  z:2, rot:180, s:2.8},
+    {id:"1AiNPMYIv0oAYV8wTG_ygifXqkY5Fbo4W", x:1071,y:720, w:68,  z:2, rot:90,  s:1.9},
+    {id:"1dT6opvM6AdH2AdT5VCk_hAPINdRJzWFD", x:1202,y:872, w:113, z:2, rot:0,   s:1.7},
+    {id:"140h6tbiZs36TjtKgy5j-mDu0OYcl7UpI", x:1326,y:585, w:73,  z:2, rot:0,   s:2.6}
+  ];
+  const tabletData = [
+    {id:"16rJp9qdChwUwWpCCRS5-kbOwcTcH4XrI", x:374.48,y:0,    w:393.52,z:1,rot:0,  s:0.2},
+    {id:"17w-2s8tdfaJjhDDNULjNqp2pbTZpkVMp", x:658.28,y:0,    w:108.49,z:2,rot:0,  s:1.2},
+    {id:"170MPmL6RFOTpI2x3Leehk0aFdpQH_tAA", x:203.52,y:24,   w:38.78, z:2,rot:0,  s:2.5},
+    {id:"1xUdYTNkusFci1y0_8HONn9guThFJmTAq", x:468.91,y:0,    w:78.55, z:2,rot:0,  s:3.0},
+    {id:"1yObb0OIE-04015pGdFTZAR-AmXMbO06N", x:408,   y:138,  w:36.57, z:2,rot:0,  s:1.8},
+    {id:"1nBgajdNoYqjXGbFYlF-dDZxgdA13Jp4g", x:323,   y:59,   w:45.7,  z:1,rot:180,s:0.4},
+    {id:"1P4Z0EChCBMVE_VwM9O1wsYIWRn0R6CaK", x:177.11,y:0,    w:63.94, z:2,rot:0,  s:2.2},
+    {id:"1nBgajdNoYqjXGbFYlF-dDZxgdA13Jp4g", x:16,    y:17.49,w:45.7,  z:1,rot:0,  s:0.4},
+    {id:"1O2Szr_VYATOMs_wvIlxdAqqqfl9iq8-m", x:0,     y:353,  w:47.26, z:2,rot:0,  s:1.5},
+    {id:"1yObb0OIE-04015pGdFTZAR-AmXMbO06N", x:47,    y:640,  w:36.57, z:2,rot:-90,s:2.0},
+    {id:"1jHHQHUzp_D4uaRssmNLAAnWy6oeCErMk", x:0,     y:931,  w:409.95,z:1,rot:0,  s:0.3},
+    {id:"1aL5SvwEL73GmbKyW-oWFK1IL5KnX2mxK", x:112,   y:985,  w:62.87, z:2,rot:0,  s:3.5},
+    {id:"1RPdNmCUgbnMQ9c_3oTrksLGdiOHHQA_n", x:333,   y:933,  w:77.33, z:2,rot:0,  s:2.4},
+    {id:"170MPmL6RFOTpI2x3Leehk0aFdpQH_tAA", x:522,   y:959,  w:38.78, z:2,rot:180,s:2.8},
+    {id:"1yObb0OIE-04015pGdFTZAR-AmXMbO06N", x:685,   y:771,  w:36.57, z:2,rot:90, s:1.9},
+    {id:"1FsVBHPIc8k7Z72mG_p-Y9ekKjgspU9CW", x:655,   y:948,  w:60.73, z:2,rot:0,  s:1.7},
+    {id:"1vonDOAf4CDcTikQsKsQLarB8uYJbHePQ",  x:711,   y:478,  w:39.13, z:2,rot:0,  s:2.6}
+  ];
+  const mobileData = [
+    {id:"16rJp9qdChwUwWpCCRS5-kbOwcTcH4XrI", x:76,    y:0,      w:283,  z:1,rot:0,  s:0.2},
+    {id:"17w-2s8tdfaJjhDDNULjNqp2pbTZpkVMp", x:284,   y:0,      w:76.31,z:2,rot:0,  s:1.2},
+    {id:"170MPmL6RFOTpI2x3Leehk0aFdpQH_tAA", x:214,   y:81,     w:27.28,z:2,rot:0,  s:2.5},
+    {id:"1xUdYTNkusFci1y0_8HONn9guThFJmTAq", x:179,   y:0,      w:55.25,z:2,rot:0,  s:3.0},
+    {id:"1yObb0OIE-04015pGdFTZAR-AmXMbO06N", x:121,   y:97,     w:29.14,z:2,rot:0,  s:1.8},
+    {id:"1nBgajdNoYqjXGbFYlF-dDZxgdA13Jp4g", x:303,   y:152,    w:32.14,z:1,rot:180,s:0.4},
+    {id:"1P4Z0EChCBMVE_VwM9O1wsYIWRn0R6CaK", x:91,    y:0,      w:44.98,z:2,rot:0,  s:2.2},
+    {id:"1nBgajdNoYqjXGbFYlF-dDZxgdA13Jp4g", x:16,    y:42,     w:29.14,z:1,rot:0,  s:0.4},
+    {id:"1O2Szr_VYATOMs_wvIlxdAqqqfl9iq8-m", x:0,     y:249,    w:33.24,z:2,rot:0,  s:1.5},
+    {id:"1yObb0OIE-04015pGdFTZAR-AmXMbO06N", x:14,    y:614,    w:29.14,z:2,rot:-90,s:2.0},
+    {id:"1jHHQHUzp_D4uaRssmNLAAnWy6oeCErMk", x:0,     y:759,    w:311,  z:1,rot:0,  s:0.3},
+    {id:"1aL5SvwEL73GmbKyW-oWFK1IL5KnX2mxK", x:42,    y:766,    w:44.22,z:2,rot:0,  s:3.5},
+    {id:"1RPdNmCUgbnMQ9c_3oTrksLGdiOHHQA_n", x:157,   y:723,    w:54.39,z:2,rot:0,  s:2.4},
+    {id:"170MPmL6RFOTpI2x3Leehk0aFdpQH_tAA", x:257.72,y:743.41, w:27.28,z:2,rot:180,s:2.8},
+    {id:"1yObb0OIE-04015pGdFTZAR-AmXMbO06N", x:313,   y:298,    w:29.14,z:2,rot:90, s:1.9},
+    {id:"1FsVBHPIc8k7Z72mG_p-Y9ekKjgspU9CW", x:311,   y:737,    w:42.72,z:2,rot:0,  s:1.7},
+    {id:"1vonDOAf4CDcTikQsKsQLarB8uYJbHePQ",  x:315,   y:528,    w:27.52,z:2,rot:0,  s:2.6}
+  ];
+
+  function getDataForScreen() {
+    const w = window.innerWidth;
+    if (w <= 480) return { data: mobileData, baseW: 360  };
+    if (w <= 768) return { data: tabletData, baseW: 768  };
+    return               { data: vegData,    baseW: 1440 };
+  }
+
+  const parallaxContainer = document.getElementById('parallax-viewport');
+
+  function buildParallax() {
+    parallaxContainer.innerHTML = '';
+    const { data, baseW } = getDataForScreen();
+    const baseH = baseW * (1000 / 1440);
+    data.forEach(v => {
+      const img = document.createElement('img');
+      img.src = `https://drive.google.com/thumbnail?id=${v.id}`;
+      img.className = 'v-layer';
+      img.style.left      = `${(v.x / baseW) * 100}%`;
+      img.style.top       = `${(v.y / baseH) * 100}%`;
+      img.style.width     = `${(v.w / baseW) * 100}%`;
+      img.style.zIndex    = v.z;
+      img.style.transform = `rotate(${v.rot}deg)`;
+      img.dataset.rot     = v.rot;
+      img.setAttribute('data-speed', v.s);
+      parallaxContainer.appendChild(img);
+    });
+  }
+
+  const isDesktop = window.matchMedia('(pointer: fine)').matches;
+  if (isDesktop) {
+    const heroSection = document.getElementById('hero');
+    heroSection.addEventListener('mousemove', function(e) {
+      const rect = heroSection.getBoundingClientRect();
+      const cx = rect.width  / 2;
+      const cy = rect.height / 2;
+      const dx = (e.clientX - rect.left - cx) / cx;
+      const dy = (e.clientY - rect.top  - cy) / cy;
+      document.querySelectorAll('.v-layer').forEach(el => {
+        const s   = parseFloat(el.getAttribute('data-speed'));
+        const rot = el.dataset.rot || 0;
+        el.style.transform = `translate(${dx * s * 8}px, ${dy * s * 8}px) rotate(${rot}deg)`;
+      });
+    });
+  }
+
+  window.addEventListener('resize', buildParallax);
+  buildParallax();
+
+  const slides = ['hero','productos','confianza','marca','blog'];
+  const dots   = document.querySelectorAll('.dot');
+
+  function updateDots() {
+    const mid = window.innerHeight / 2;
+    slides.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      if (r.top <= mid && r.bottom >= mid) {
+        dots.forEach(d => d.classList.remove('active'));
+        if (dots[i]) dots[i].classList.add('active');
+      }
+    });
+  }
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const idx = parseInt(dot.getAttribute('data-slide'));
+      const el  = document.getElementById(slides[idx]);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  window.addEventListener('scroll', updateDots, { passive: true });
+  updateDots();
+
+  const carrusel = document.getElementById('contenedor-carrusel');
+  if (carrusel) {
+    function moverCarrusel(dir) {
+      const item = carrusel.querySelector('.item-carrusel');
+      const w    = item.offsetWidth + 16;
+      const max  = carrusel.scrollWidth - carrusel.clientWidth;
+      const cur  = carrusel.scrollLeft;
+      if (dir > 0 && cur >= max - 1) carrusel.scrollTo({ left: 0, behavior: 'smooth' });
+      else if (dir < 0 && cur <= 0)  carrusel.scrollTo({ left: max, behavior: 'smooth' });
+      else carrusel.scrollBy({ left: dir * w, behavior: 'smooth' });
+    }
+    document.getElementById('btn-next')?.addEventListener('click', () => moverCarrusel(1));
+    document.getElementById('btn-prev')?.addEventListener('click', () => moverCarrusel(-1));
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      } else {
+        e.target.classList.remove('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxl8DSaPRPs475vGXi-aWxbncRF3ZNIbSYODAX2v_u7zxxlYaZ8Uqb3QHd113lsHP2v/exec';
+  const newsletterForm = document.getElementById('newsletter-form');
+  const mensajeExito = document.getElementById('mensaje-exito');
+
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const btn = newsletterForm.querySelector('button');
+      btn.disabled = true;
+      btn.innerText = 'Enviando...';
+      const formData = new FormData(newsletterForm);
+      const queryString = new URLSearchParams(formData).toString();
+      fetch(scriptURL + '?' + queryString, { method: 'POST' })
+        .then(() => {
+          newsletterForm.style.display = 'none';
+          mensajeExito.style.display = 'block';
+          setTimeout(() => {
+            newsletterForm.reset();
+            newsletterForm.style.display = 'flex';
+            mensajeExito.style.display = 'none';
+            btn.disabled = false;
+            btn.innerText = 'Unirme';
+          }, 5000);
+        })
+        .catch(error => {
+          console.error('Error!', error.message);
+          btn.disabled = false;
+          btn.innerText = 'Unirme';
+          alert('Hubo un error de conexión.');
+        });
+    });
+  }
+});
+
+ /* HEADER */
+  document.querySelectorAll('.menu-item').forEach(item => {
+    item.addEventListener('click', function () {
+      document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('activo'));
+      this.classList.add('activo');
+    });
+  });
+
+</script>
+</body>
+</html>

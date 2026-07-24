@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title> La industria del “comer sano”: cuándo ayuda y cuándo daña nuestra salud mental — Tómate Tomate</title>
+<meta name="description" content="La búsqueda de una alimentación saludable puede mejorar el bienestar físico y emocional, pero cuando se guía por ideales poco realistas o información sin evidencia, también puede afectar la salud mental.">
+<meta name="author" content="Tómate Tomate">
+
+<!-- Open Graph: previsualización al compartir en redes -->
+<meta property="og:title" content="La industria del “comer sano”: cuándo ayuda y cuándo daña nuestra salud mental — Tómate Tomate">
+<meta property="og:description" content="La búsqueda de una alimentación saludable puede mejorar el bienestar físico y emocional, pero cuando se guía por ideales poco realistas o información sin evidencia, también puede afectar la salud mental.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://tuusuario.github.io/tomate-tomate/articulos/efecto-mariposa.html">
+<meta property="og:image" content="https://tuusuario.github.io/tomate-tomate/img/efecto-mariposa.jpg">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --naranja: #E8520A;
+    --naranja-hover: #C94408;
+    --naranja-light: #FDF0E8;
+    --naranja-mid: #F5A97A;
+    --verde: #40A629;
+    --verde-mid: #2E6B42;
+    --verde-light: #EAF2EC;
+    --rojo: #8B1A1A;
+    --crema: #FAF6F0;
+    --blanco: #FFFFFF;
+    --texto: #1A1208;
+    --texto-mid: #4A3820;
+    --texto-suave: #8A7560;
+    --borde: #EAE0D4;
+    --col-lectura: 680px; /* UX: ~65 chars por línea, óptimo para lectura */
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--crema);
+    color: var(--texto);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ──────────────────────────────────────
+     PROGRESO DE LECTURA
+     UX: el lector sabe cuánto le queda
+  ────────────────────────────────────── */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--naranja), var(--naranja-mid));
+    z-index: 9999;
+    transition: width 0.08s linear;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ──────────────────────────────────────
+     NAV
+     UX: navegación mínima, sin distracciones
+  ────────────────────────────────────── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    background: rgba(250,246,240,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--borde);
+  }
+
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--naranja);
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .nav-logo span { color: var(--verde); font-style: italic; }
+
+  /* UX: breadcrumb para orientación */
+  .nav-breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--texto-suave);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .nav-breadcrumb a { color: var(--texto-suave); text-decoration: none; transition: color 0.2s; }
+  .nav-breadcrumb a:hover { color: var(--naranja); }
+  .nav-breadcrumb .sep { color: var(--borde); }
+  .nav-breadcrumb .current { color: var(--naranja); }
+
+  /* UX: tiempo de lectura visible desde el nav */
+  .nav-reading-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--texto-suave);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 600px) {
+    .nav-breadcrumb { display: none; }
+  }
+
+  /* ──────────────────────────────────────
+     HERO DEL ARTÍCULO
+  ────────────────────────────────────── */
+  .article-hero {
+    background: var(--verde);
+    padding: 3.5rem 1.5rem 3rem;
+    text-align: center;
+  }
+
+  .hero-inner {
+    max-width: var(--col-lectura);
+    margin: 0 auto;
+  }
+
+  .hero-cat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(232,82,10,0.2);
+    border: 1px solid rgba(232,82,10,0.35);
+    color: var(--naranja-mid);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 900;
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+  }
+  .hero-title em { color: var(--naranja-mid); font-style: italic; }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.7);
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  /* UX: metadatos del artículo bien visibles */
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.5);
+  }
+  .meta-item .icon { font-size: 0.9rem; }
+  .meta-sep { color: rgba(255,255,255,0.2); }
+
+  /* ──────────────────────────────────────
+     SHARE — encima del artículo
+     UX: capturar intención antes de leer
+  ────────────────────────────────────── */
+  .share-top {
+    max-width: var(--col-lectura);
+    margin: 0 auto;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--borde);
+  }
+
+  .share-top-text {
+    font-size: 0.82rem;
+    color: var(--texto-suave);
+  }
+.btn-facebook {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #1877F2;
+  color: white;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-facebook:hover { background: #1459b8; transform: translateY(-1px); }
+
+.btn-instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #c13584;
+  color: white;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-instagram:hover { background: #962a68; transform: translateY(-1px); }
+
+
+  /* ──────────────────────────────────────
+     ÍNDICE DE CONTENIDOS
+     UX: orientación y salto rápido
+  ────────────────────────────────────── */
+  .toc-wrap {
+    max-width: var(--col-lectura);
+    margin: 2rem auto 0;
+    padding: 0 1.5rem;
+  }
+
+  .toc {
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-left: 3px solid var(--naranja);
+    border-radius: 6px;
+    padding: 1.2rem 1.5rem;
+  }
+
+  .toc-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--naranja);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .toc-toggle { margin-left: auto; font-size: 0.8rem; transition: transform 0.2s; }
+  .toc.collapsed .toc-toggle { transform: rotate(-90deg); }
+  .toc.collapsed .toc-list { display: none; }
+
+  .toc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .toc-list li a {
+    font-size: 0.88rem;
+    color: var(--texto-mid);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.2rem 0;
+    transition: color 0.2s;
+  }
+  .toc-list li a::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--borde);
+    flex-shrink: 0;
+    transition: background 0.2s, width 0.2s;
+  }
+  .toc-list li a:hover { color: var(--naranja); }
+  .toc-list li a:hover::before { background: var(--naranja); width: 22px; }
+  .toc-list li a.active { color: var(--naranja); font-weight: 500; }
+  .toc-list li a.active::before { background: var(--naranja); }
+
+  /* ──────────────────────────────────────
+     CUERPO DEL ARTÍCULO
+     UX: tipografía y espaciado para lectura larga
+  ────────────────────────────────────── */
+  .article-body {
+    max-width: var(--col-lectura);
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 1rem;
+  }
+
+  /* Párrafos */
+  .article-body p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--texto-mid);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Títulos de sección */
+  .article-body h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--texto);
+    margin: 2.5rem 0 1rem;
+    line-height: 1.25;
+    scroll-margin-top: 80px; /* UX: offset para nav sticky */
+  }
+
+  .article-body h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--verde);
+    margin: 2rem 0 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Destacado / lead */
+  .article-body .lead {
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--texto);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    border-left: 3px solid var(--naranja);
+    padding-left: 1.2rem;
+  }
+
+  /* Cita destacada */
+  .article-body blockquote {
+    margin: 2rem 0;
+    padding: 1.5rem 1.8rem;
+    background: var(--naranja-light);
+    border-left: 4px solid var(--naranja);
+    border-radius: 0 6px 6px 0;
+  }
+  .article-body blockquote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--texto);
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.6;
+  }
+  .article-body blockquote cite {
+    display: block;
+    margin-top: 0.8rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--texto-suave);
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Dato destacado (callout) */
+  .callout {
+    background: var(--verde-light);
+    border: 1px solid rgba(29,74,46,0.2);
+    border-radius: 8px;
+    padding: 1.3rem 1.5rem;
+    margin: 2rem 0;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .callout-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .callout-text {
+    font-size: 0.92rem;
+    color: var(--verde);
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  .callout-text strong { font-weight: 600; }
+
+  /* Separador visual */
+  .article-body hr {
+    border: none;
+    border-top: 1px solid var(--borde);
+    margin: 2.5rem 0;
+  }
+
+  /* Links en texto */
+  .article-body a {
+    color: var(--naranja);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .article-body a:hover { color: var(--naranja-hover); }
+
+  /* ──────────────────────────────────────
+     TAGS DEL ARTÍCULO
+  ────────────────────────────────────── */
+  .article-tags {
+    max-width: var(--col-lectura);
+    margin: 0 auto;
+    padding: 0 1.5rem 2rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .tags-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--texto-suave);
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    font-family: 'DM Mono', monospace;
+    padding: 0.25rem 0.7rem;
+    border-radius: 3px;
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    color: var(--texto-suave);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .tag:hover { border-color: var(--naranja); color: var(--naranja); }
+
+/* ──────────────────────────────────────
+   BLOQUE DE COMENTARIOS
+   UX: conversación integrada naturalmente
+   ────────────────────────────────────── */
+.comments-section {
+  max-width: var(--col-lectura);
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+}
+
+.comments-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.comments-divider::before,
+.comments-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--borde);
+}
+.comments-divider-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--texto-suave);
+  white-space: nowrap;
+}
+
+.comments-card {
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.comments-header {
+  background: #000;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.comments-header-text { flex: 1; min-width: 200px; }
+
+.comments-header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.4rem;
+}
+
+.comments-header p {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+.comments-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.comments-empty {
+  text-align: center;
+  padding: 2rem;
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+  font-family: 'DM Mono', monospace;
+}
+
+/* Tarjetas de comentarios */
+.comment-card {
+  display: flex;
+  gap: 0.8rem;
+  padding: 1rem;
+  background: var(--crema);
+  border-radius: 6px;
+  border: 1px solid var(--borde);
+}
+
+.comment-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--naranja);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  color: white;
+  font-weight: 700;
+  font-family: 'DM Mono', monospace;
+}
+
+.comment-content { flex: 1; }
+
+.comment-author {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--texto);
+  margin-bottom: 0.3rem;
+}
+.comment-author span {
+  font-weight: 300;
+  color: var(--texto-suave);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+}
+
+.comment-text {
+  font-size: 0.88rem;
+  color: var(--texto-mid);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* Formulario */
+.comments-form-section {
+  padding: 1.5rem;
+  border-top: 1px solid var(--borde);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.comments-form-section h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--texto);
+  margin-bottom: 0.2rem;
+}
+
+.comments-form-section input,
+.comments-form-section textarea {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  background: var(--crema);
+  color: var(--texto);
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+  resize: vertical;
+}
+
+.comments-form-section input:focus,
+.comments-form-section textarea:focus {
+  outline: none;
+  border-color: var(--naranja);
+}
+
+.btn-comentar {
+  align-self: flex-start;
+  background: #000;
+  color: white;
+  padding: 0.7rem 1.6rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  font-family: inherit;
+}
+.btn-comentar:hover {
+  background: var(--naranja);
+  transform: translateY(-1px);
+}
+.btn-comentar:disabled {
+  background: var(--borde);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.comments-message {
+  font-size: 0.82rem;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  display: none;
+}
+.comments-message.ok {
+  background: #e6f4ea;
+  color: #2d6a4f;
+  display: block;
+}
+.comments-message.error {
+  background: #fdecea;
+  color: #b71c1c;
+  display: block;
+}
+
+
+  /* ──────────────────────────────────────
+     COMPARTIR AL FINAL
+     UX: segundo momento de conversión
+  ────────────────────────────────────── */
+  .share-bottom {
+    background: var(--naranja);
+    margin: 0;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+  }
+
+  .share-bottom-inner {
+    max-width: var(--col-lectura);
+    margin: 0 auto;
+  }
+
+  .share-bottom h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+
+  .share-bottom p {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .share-btns {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-share-x {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #000;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-share-x:hover { background: #222; }
+
+  .btn-copy-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-copy-link:hover { background: rgba(255,255,255,0.25); }
+
+  /* ──────────────────────────────────────
+     ARTÍCULOS RELACIONADOS
+     UX: retención, siguiente paso claro
+  ────────────────────────────────────── */
+  .related {
+    background: var(--verde);
+    padding: 3rem 1.5rem;
+  }
+
+  .related-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .related-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 0.5rem;
+  }
+
+  .related-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 2rem;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .related-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .related-card:hover {
+    background: rgba(255,255,255,0.12);
+    transform: translateY(-3px);
+  }
+
+  .related-thumb {
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+  }
+
+  .bg-naranja { background: linear-gradient(135deg, #E8520A, #F5A97A); }
+  .bg-rojo    { background: linear-gradient(135deg, #8B1A1A, #C0392B); }
+  .bg-cafe    { background: linear-gradient(135deg, #6B4A1A, #A07840); }
+
+  .related-info {
+    padding: 1rem;
+    flex: 1;
+  }
+
+  .related-cat {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--naranja-mid);
+    margin-bottom: 0.4rem;
+  }
+
+  .related-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+
+  .related-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ──────────────────────────────────────
+     FOOTER
+  ────────────────────────────────────── */
+.tt-footer { background: #FEE7B1; border-top: 5px solid var(--naranja); }
+.tt-footer-inner { max-width: 1200px; margin: 0 auto; padding: 40px 30px 20px; }
+.tt-footer-top { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; padding-bottom: 30px; border-bottom: 1px solid rgba(248,105,64,0.2); }
+.tt-footer-brand img { height: 55px; margin-bottom: 10px; display: block; }
+.tt-footer-brand p { font-size: 13px; color: #666; line-height: 1.6; max-width: 210px; }
+.tt-footer-col h4 { font-size: 11px; font-weight: 700; color: var(--naranja); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
+.tt-footer-col p, .tt-footer-col li { font-size: 13px; color: #555; line-height: 1.9; list-style: none; }
+.tt-footer-col ul { padding: 0; }
+.zona-tag-sm { display: inline-block; background: var(--naranja); color: white; font-size: 11px; padding: 3px 10px; border-radius: 20px; margin: 2px 2px 2px 0; font-weight: 600; }
+.email-link { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; text-decoration: none; margin-bottom: 6px; transition: color 0.2s; }
+.email-link:hover { color: var(--naranja); }
+.email-link i { color: var(--naranja); width: 16px; }
+.social-row { display: flex; gap: 8px; margin-top: 10px; }
+.soc-icon { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 14px; transition: transform 0.2s, opacity 0.2s; }
+.soc-icon:hover { transform: scale(1.1); opacity: 0.9; }
+.soc-icon.fb { background: #3b5998; }
+.soc-icon.ig { background: #c13584; }
+.soc-icon.wa { background: #25D366; }
+.soc-icon.th { background: #0a0a0a; }
+.tt-footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 18px; flex-wrap: wrap; gap: 10px; }
+.tt-footer-bottom p { font-size: 12px; color: #999; }
+.footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.footer-links a { font-size: 12px; color: #999; text-decoration: none; }
+.footer-links a:hover { color: var(--naranja); }
+ 
+@media (max-width: 768px) {
+  .tt-footer-top { grid-template-columns: 1fr; gap: 24px; }
+  .tt-footer-brand p { max-width: 100%; }
+  .tt-footer-bottom { flex-direction: column; align-items: center; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tt-footer-top { grid-template-columns: 1fr 1fr; }
+  .tt-footer-brand { grid-column: 1 / -1; }
+}
+
+  /* ──────────────────────────────────────
+     RESPONSIVE
+  ────────────────────────────────────── */
+  @media (max-width: 760px) {
+    .related-grid { grid-template-columns: 1fr; }
+    .comments-header { flex-direction: column; }
+    .btn-x-large { width: 100%; justify-content: center; }
+  }
+
+  @media (max-width: 500px) {
+    .article-body p { font-size: 1rem; }
+    .article-body h2 { font-size: 1.3rem; }
+    .share-btns { flex-direction: column; align-items: center; }
+    .btn-share-x, .btn-copy-link { width: 100%; justify-content: center; }
+    .hero-meta { gap: 0.8rem; }
+    .meta-sep { display: none; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- PROGRESO DE LECTURA -->
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+          <div id="tt-logo-container" title="Logo" class="tt-logo-container">
+            <a id="i02g1" title="Tómate Tomate" href="http://localhost/wordpress/?page_id=15"><img src="https://drive.google.com/thumbnail?id=19u00Nz1w-MgIUmQbGZnLZ_uyMq1hmgaj" alt="Tómate Tomate" id="ixz46" class="tt-logo"/>
+              </div></a>
+    <nav class="nav-breadcrumb">
+      <a href=" tomate-tomate-listado_articulos.html">Artículos</a>
+      <span class="sep">›</span>
+      <span class="current">Marketing social </span>
+    </nav>
+    <span class="nav-reading-time">⏱ 11 min lectura</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="article-hero">
+  <div class="hero-inner">
+    <span class="hero-cat">📊 Marketing Social</span>
+    <h1 class="hero-title"> La industria del “comer sano”:<br><em> cuándo ayuda y cuándo daña nuestra salud mental </em></h1>
+    <p class="hero-subtitle"> La búsqueda de una alimentación saludable puede mejorar el bienestar físico y emocional, pero cuando se guía por ideales poco realistas o información sin evidencia, también puede afectar la salud mental.</p>
+    <div class="hero-meta">
+      <span class="meta-item"><span class="icon">📅</span> 24 Jul 2026</span>
+      <span class="meta-sep">·</span>
+      <span class="meta-item"><span class="icon">⏱</span> 11 min lectura</span>
+      <span class="meta-sep">·</span>
+      <span class="meta-item"><span class="icon">✍️</span> Tómate Tomate</span>
+    </div>
+  </div>
+</header>
+
+<!-- SHARE TOP -->
+<div class="share-top">
+  <p class="share-top-text">¿Te parece interesante? Compártelo antes de leer 🍅</p>
+<a href="https://www.facebook.com/sharer/sharer.php?u=TU-URL" target="_blank" class="btn-facebook">
+  📘 Facebook
+</a>
+<a href="https://www.instagram.com /sharer/sharer.php?u=TU-URL" target="_blank" class="btn-instagram">
+  📸 Instagram
+</a>
+</div>
+
+<!-- ÍNDICE -->
+<div class="toc-wrap">
+  <div class="toc" id="toc">
+    <div class="toc-title" id="tocToggle">
+      📋 Contenido del artículo
+      <span class="toc-toggle">▾</span>
+    </div>
+    <ul class="toc-list">   
+      <li><a href="#RestriccionAlimentariaBienestar" id="toc-RestriccionAlimentariaBienestar">Cuando la restricción alimentaria mejora el bienestar</a></li>
+      <li><a href="#PesoIdeal" id="toc-PesoIdeal"> El costo emocional de perseguir el peso "ideal"</a></li>
+<li><a href="#PresionSocial" id="toc-PresionSocial">Comer también es un acto cultural</a></li>
+<li><a href="#SignificadoComida" id="toc- SignificadoComida">Mucho más que nutrición: los significados de la comida</a></li>
+<li><a href="#RedesSociales " id="toc- RedesSociales">Redes sociales: entre el apoyo y la presión constante</a></li>
+<li><a href="#SaludMental" id="toc- SaludMental">Hacia una información que cuide la salud mental</a></li>
+<li><a href="#conclusion" id="toc-conclusion">Conclusión</a></li>
+      <li><a href="#referencias" id="toc-referencias">Referencias</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- CUERPO DEL ARTÍCULO -->
+<article class="article-body">
+<p class="lead">Cada vez es más común encontrar recomendaciones sobre qué comer, qué evitar y cuál debería ser el peso "ideal". Redes sociales, páginas web e incluso campañas de bienestar promueven estilos de vida saludables que, en muchos casos, ofrecen herramientas útiles para mejorar los hábitos alimentarios. Sin embargo, este mismo entorno también puede generar presión, culpa y expectativas difíciles de alcanzar.  </p>
+  <p>La alimentación no depende únicamente de las necesidades del cuerpo. También está influenciada por la cultura, las emociones, las relaciones sociales y la forma en que entendemos el bienestar. Por eso, hablar de alimentación saludable implica mirar más allá de las calorías y reconocer que la salud mental también forma parte de la ecuación.  </p>
+  <h2 id="RestriccionAlimentariaBienestar">Cuando la restricción alimentaria mejora el bienestar</h2>
+  <p>La restricción alimentaria puede tener resultados positivos dependiendo del contexto y de la forma en que se lleve a cabo. Según Bublitz et al. (2010), cuando una persona logra alcanzar un peso saludable mediante cambios en su alimentación, también puede experimentar beneficios psicológicos, menores costos médicos, mejores resultados en el trabajo y una mayor sensación de control sobre diferentes aspectos de su vida.  </p>
+  <p>Estos resultados muestran que adoptar hábitos alimentarios puede convertirse en una fuente de bienestar cuando las decisiones responden a objetivos realistas y sostenibles. Sin embargo, estos beneficios no ocurren de la misma manera en todas las personas, especialmente cuando la búsqueda del "peso adecuado" se convierte en una meta rígida o difícil de alcanzar.  </p>
+  <h2 id="PesoIdeal">El costo emocional de perseguir el peso "ideal"</h2>
+  <p>Cuando los resultados esperados no llegan, las consecuencias pueden ir mucho más allá del peso corporal. Bublitz et al. (2010) señalan que la restricción alimentaria puede provocar disminución de la glucosa en sangre y un aumento de las señales internas de hambre, factores que favorecen conductas como la pérdida de autocontrol, interrupciones en la dieta, episodios de alimentación desinhibida durante periodos prolongados y el consumo perjudicial de cigarrillos o cafeína.  </p>
+  <p>A estas consecuencias físicas y conductuales se suman emociones como la frustración y el desánimo. En muchos casos, la sensación de fracaso impulsa a buscar métodos cada vez más extremos y costosos para perder peso o, por el contrario, lleva al abandono completo de la dieta (Bublitz et al, 2010).  </p>
+  <p>Por esta razón, los autores proponen que la información sobre alimentación no se centre exclusivamente en la restricción. En su lugar, plantean promover decisiones apoyadas en señales externas de consumo y en elementos como las heurísticas del empaque, acompañadas de educación alimentaria y moderación. La idea no es prohibir alimentos, sino aprender a disfrutar de ellos sin excesos, considerando también las señales sociales y emocionales que influyen en la alimentación y comprendiendo que la comida cumple funciones psicológicas, físicas, emocionales y sociales (Bublitz et al, 2010).  </p>
+  <h2 id="PresionSocial">Comer también es un acto cultural</h2>
+  <p>Pensar la alimentación únicamente desde la enfermedad o la salud deja por fuera una parte esencial del comportamiento humano. Gracia-Arnaiz (2007), retomando las propuestas de Mennell y Turner, explica que la llamada "dieta equilibrada" también forma parte de un proceso de normalización dietética, en el que se construyen reglas sobre qué alimentos consumir, cuándo hacerlo, cómo comer e incluso con quién compartir la comida.  </p>
+  <p>Este proceso busca homogeneizar la vida cotidiana, pero puede simplificar una realidad mucho más compleja. La alimentación está profundamente relacionada con la cultura y con el significado que las personas atribuyen al acto de comer (Gracia-Arnaiz, 2007).  </p>
+  <p>Las recriminaciones sobre la alimentación también suelen tener una dimensión moral. Como señala el Ministerio de Sanidad y Consumo (2005), con frecuencia las personas son consideradas irresponsables o con poca fuerza de voluntad cuando no logran controlar su alimentación. Incluso, muchas reconocen que comen o beben para compensar estados emocionales, aunque no tengan hambre y sean conscientes de que esto puede afectar su salud.  </p>
+  <h2 id="SignificadoComida">Mucho más que nutrición: los significados de la comida</h2>
+  <p>Las razones para comer son diversas y dependen del significado que cada persona atribuye a los alimentos. Contreras y Gracia (2005) destacan que las actitudes frente a la alimentación cambian según la utilidad o el sentido que tenga comer para cada individuo.  </p>
+  <p>En algunos contextos, comer en abundancia representa una celebración cultural, una demostración de estatus o una forma de expresar poder y prestigio, como describe Powdermaker (1997). En otros casos ocurre lo contrario: las personas dejan de comer aun cuando existe disponibilidad de alimentos, ya sea como forma de protesta, por motivos religiosos o como expresión artística (Contreras, 1992).  </p>
+  <p>En la actualidad, sin embargo, una parte importante de la restricción alimentaria está relacionada con el deseo de alcanzar un cuerpo socialmente aceptado y controlar el peso corporal. Esta tendencia se ha fortalecido por la asociación entre obesidad y enfermedad, el rechazo cultural hacia la glotonería y la valoración de la delgadez como ideal corporal (Basdevant y Guy-Gran, 2004; Poulain, 2000). Como consecuencia, las personas con obesidad han sido frecuentemente estigmatizadas y consideradas como individuos sin suficiente voluntad para hacer dieta o ejercicio (Lupton, 2000; Maddox y Liederman, 1962).  </p>
+  <h2 id="RedesSociales">Redes sociales: entre el apoyo y la presión constante</h2>
+  <p>Las redes sociales y los sitios web dedicados a la alimentación pueden convertirse tanto en espacios de apoyo como en fuentes de riesgo para la salud mental.  </p>
+  <p>Feuston et al. (2020) y Yeshua-Katz y Martins (2012) encontraron que muchas personas experimentan una sensación de acompañamiento al encontrar comunidades que validan sus experiencias. Compartir logros relacionados con la pérdida de peso, acceder a información, encontrar apoyo emocional o recibir orientación sobre tratamientos y centros especializados puede fortalecer el empoderamiento y favorecer la adopción de hábitos saludables.  </p>
+  <p>Sin embargo, el acceso permanente a este tipo de contenidos también tiene riesgos. Gale et al. (2016) y Cinquegrani y Brown (2018) advierten que la información sin respaldo científico puede favorecer conductas disfuncionales, como la dependencia al contenido, la búsqueda constante de compensación, la autocrítica utilizada como castigo, la competencia por alcanzar un cuerpo más delgado, el abandono de tratamientos y la aparición de sentimientos de incompetencia e impotencia.  </p>
+  <p>Además, la comparación social permanente y la imposición del ideal de delgadez pueden favorecer la restricción alimentaria y desencadenar síntomas asociados a trastornos de la conducta alimentaria, especialmente cuando estos contenidos reactivan recuerdos o experiencias emocionales dolorosas (Gale et al., 2016) y Cinquegrani y Brown, 2018).  </p>
+<blockquote> <p> Comer saludable también significa cuidar la relación emocional que construimos con los alimentos y con nuestro propio cuerpo. Comprender la relación entre alimentación, cultura y emociones es clave para tomar decisiones más conscientes.</p></blockquote>
+  <h2 id="SaludMental">Hacia una información que cuide la salud mental</h2>
+  <p>Frente a este panorama, Moraes et al. (2025) proponen que las redes sociales y las páginas web incorporen recursos para identificar y abordar las vulnerabilidades psicológicas de sus usuarios, además de desarrollar herramientas que ayuden a reconocer información que pueda perjudicar la salud mental.  </p>
+  <p>Los autores también resaltan la importancia de que los servicios orientados a mejorar las conductas alimentarias proporcionen información cualificada sobre el acceso al tratamiento, contribuyan a disminuir los sentimientos de vergüenza, fortalezcan la gestión emocional, enseñen a interpretar las señales corporales y desarrollen habilidades para resolver problemas cotidianos basadas en la realidad (Moraes et al., 2025).  </p>
+  <p>Igualmente, resulta fundamental promover una lectura crítica de los mensajes difundidos por los medios sobre el ideal de delgadez e involucrar a la familia como parte del proceso de apoyo, de manera que las personas reduzcan la dependencia de los contenidos digitales y encuentren redes de acompañamiento más saludables (Moraes et al., 2025).  </p>
+  <div class="callout"><span class="callout-icon">💡</span><p class="callout-text"><strong>Para reflexionar:</strong>¿Las decisiones que tomas sobre tu alimentación nacen de tus necesidades reales o de las expectativas que otros han construido sobre cómo debería verse tu cuerpo?  </p></div>
+  <h2 id="conclusion">Conclusión</h2>
+  <p>Promover una alimentación saludable no consiste únicamente en enseñar qué alimentos consumir o cuáles evitar. También implica reconocer que comer es un comportamiento influenciado por la cultura, las emociones, las relaciones sociales y la forma en que interpretamos los mensajes que recibimos diariamente. Construir hábitos saludables requiere información basada en evidencia, pensamiento crítico y una relación más amable con el propio cuerpo. Solo así la búsqueda del bienestar podrá beneficiar tanto la salud física como la salud mental.  </p>
+  <h2 id="referencias">Referencias</h2>
+  <p>Basdevant A, Guy-Gran B. Médicine de l’obésité. París: Flammarion, 2004.  </p>
+  <p>Bublitz, M. G., Peracchio, L. A., & Block, L. G. (2010). Why did I eat that? Perspectives on food decision making and dietary restraint. Journal of Consumer Psychology (John Wiley & Sons, Inc. ), 20(3), 239–258. https://doi-org.ezproxy.uniminuto.edu/10.1016/j.jcps.2010.06.008  </p>
+  <p>Cinquegrani, C., & Brown, D. H. K. (2018). “Wellness” lifts us above the food chaos: A narrative exploration of the experiences and conceptualisations of Orthorexia Nervosa through online social media forums. Qualitative Research in Sport, Exercise and Health, 10(5), 585-603. https://doi.org/10.1080/2159676x.2018.1464501</p>
+  <p>Contreras J, Gracia M. Alimentación y cultura. Perspectivas antropológicas. Barcelona: Ariel, 2005.</p>
+  <p>Contreras J. Antropología de la alimentación. Madrid: Eudema, 1992.  </p>
+  <p>Feuston, J. L., Taylor, A. S., & Piper, A. M. (2020). Conformity of eating disorders through content moderation. Proceedings of the ACM on HumanComputer Interaction, 4(CSCW1), Article 40, 1-28. https://doi.org/10.1145/3392845</p>
+  <p>Gale, L., Channon, S., Larner, M., & James, D. (2016). Experiences of using pro-eating disorder websites: a qualitative study with service users in NHS eating disorder services. Eating and Weight Disorders: Studies on Anorexia, Bulimia and Obesity, 21(3), 427-434. https://doi.org/10.1007/s40519-015-0242-8 </p>
+  <p>Gracia-Arnaiz, M. (2007). Comer bien, comer mal: la medicalización del comportamiento alimentario. Salud Pública de México, 49(3), 236–242. https://doi-org.ezproxy.uniminuto.edu/10.1590/S0036-36342007000300009</p>
+  <p>Lupton D. Food, risk and subjectivity. In:Williams SJ, ed. Health, medicine and society, key theories, futur agendas. Londres: Routledge, 2000</p>
+  <p>Maddox GL, Liederman V. Overweight as a social disability with medical implications. J Med Educ 1969;44:214-220.</p>
+  <p>Ministerio de Sanidad y Consumo. Estrategia para la Nutrición, Actividad Física y Prevención de la Obesidad (NAOS). Madrid: MSC, 2005.</p>
+  <p>Moraes, R. B. D., Santos, M. A. D., Ferracioli, N. G. M., Maia, B. B., & Oliveira-Cardoso, É. A. D. (2025). Efeitos das mídias sociais no comer transtornado e nos transtornos alimentares: revisão sistemática e metassíntese. Psico-USF, 30, e281109. DOI: 10.1590/1413-8271202530e281109</p>
+  <p>Poulain JP. Les dimesions sociales de l’obesité. En: Obésité, dépistage et prévention chez l’enfant.Expertise collective. París: INSERM, 2000.</p>
+  <p>Powdermaker H. An anthropological approach to the problem of obesity. In: Counihan C,Van Esterik, P. eds. Food and culture. A reader. Londres: Routledge, 1997: 370-383.  </p>
+  <p>Yeshua-Katz, D., & Martins, N. (2012). Communicating stigma: The pro-ana paradox. Health Communication, 28(5), 499-508. https://doi.org/10.1080/10410236.2012.699889</p>
+
+</article>
+
+<!-- TAGS -->
+<div class="article-tags">
+  <span class="tags-label">Temas:</span>
+  <a href="#" class="tag">#alimentación-bienestar</a>
+  <a href="#" class="tag">#Peso-Ideal-cultural</a>
+  <a href="#" class="tag">#Redes-sociales</a>
+  <a href="#" class="tag">#Salud-Mental</a>
+  <a href="#" class="tag">#psicología</a>
+</div>
+
+<!-- Comentarios -->
+<div class="comments-section">
+  <div class="comments-divider">
+    <span class="comments-divider-label">Conversación</span>
+  </div>
+
+  <div class="comments-card">
+
+    <!-- HEADER -->
+    <div class="comments-header">
+      <div class="comments-header-text">
+        <h3>¿Qué piensas?</h3>
+        <p>Tu nombre es opcional. Los comentarios se aprueban automáticamente si cumplen las normas básicas.</p>
+      </div>
+    </div>
+
+    <!-- LISTA DE COMENTARIOS -->
+    <div class="comments-body" id="comments-list">
+      <p class="comments-empty">Cargando comentarios...</p>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="comments-form-section">
+      <h4>Deja tu comentario</h4>
+      <input
+        type="text"
+        id="comment-name"
+        placeholder="Tu nombre (opcional)"
+        maxlength="50"
+      />
+      <textarea
+        id="comment-text"
+        placeholder="¿Qué opinas? (mínimo 20 caracteres)"
+        rows="4"
+        maxlength="1000"
+      ></textarea>
+      <button class="btn-comentar" id="btn-enviar" onclick="enviarComentario()">
+        Comentar
+      </button>
+      <p class="comments-message" id="comments-message"></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- SHARE BOTTOM -->
+<div class="share-bottom">
+  <div class="share-bottom-inner">
+    <h3>¿Te gustó este artículo?</h3>
+    <p>Compártelo con alguien a quien le importe lo que come y lo que consume.</p>
+    <div class="share-btns">
+      <a href="https://www.facebook.com/sharer/sharer.php?u=TU-URL" target="_blank" rel="noopener" class="btn-share-x" style="background:#1877F2;">
+  📘 Facebook
+</a>
+<a href="https://www.instagram.com/sharer/sharer.php?u=TU-URL" target="_blank" rel="noopener" class="btn-share-x" style="background:#c13584;">
+  📸 Instagram
+</a>
+      <button class="btn-copy-link" id="copyBtn" onclick="copyLink()">
+        🔗 Copiar enlace
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ARTÍCULOS PUBLICADOS -->
+<section class="related">
+  <div class="related-inner">
+    <p class="related-label">Sigue leyendo</p>
+    <h2 class="related-title">Artículos publicados</h2>
+    <div class="related-grid">
+      <a href="comer bien_no hacemos.html" class="related-card">
+        <div class="related-thumb bg-naranja">🍔</div>
+        <div class="related-info">
+          <p class="related-cat">Marketing Social</p>
+          <h3 class="related-card-title">¿Por qué sabemos qué es “comer bien” pero no lo hacemos?</h3>
+          <p class="related-meta">10 min · 24 Jul 2026</p>
+        </div>
+      </a>
+      <a href="5 decisiones alimentaria en automatico.html" class="related-card">
+        <div class="related-thumb bg-cafe">🍕</div>
+        <div class="related-info">
+          <p class="related-cat">Psicología y Alimentación</p>
+          <h3 class="related-card-title">5 decisiones alimentarias que tomamos en automático</h3>
+          <p class="related-meta">14 min · 24 Jul 2026</p>
+        </div>
+      </a>
+      <a href="Querer consumo sostenible pero no.html" class="related-card">
+        <div class="related-thumb bg-rojo">🌲</div>
+        <div class="related-info">
+          <p class="related-cat">Eco Consciencia</p>
+          <h3 class="related-card-title">Por qué queremos consumir de forma sostenible, pero no lo hacemos</h3>
+          <p class="related-meta">12 min · 24 Jul 2026</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+     <footer class="tt-footer">
+  <div class="tt-footer-inner">
+    <div class="tt-footer-top">
+      <div class="tt-footer-brand">
+        <a href=" landing-tomate.html"><img src="https://drive.google.com/thumbnail?id=1fM_iYOuVT-tqTnFM2vW6zbgWUkaktxGy" alt="Tómate Tomate"></a>
+        <p>Ensaladas frescas como complemento de tu almuerzo. Ingredientes reales, sabor consciente.</p>
+      </div>
+      <div class="tt-footer-col">
+        <h4>Zona de cobertura</h4>
+        <div style="margin-top:6px;">
+          <span class="zona-tag-sm">San Cristóbal</span>
+          <span class="zona-tag-sm">Altablanca</span>
+          <span class="zona-tag-sm">Santa Teresa</span>
+        </div>
+        <p style="font-size:11px;color:#aaa;margin-top:8px;">Bogotá · UPZ Toberín</p>
+      </div>
+      <div class="tt-footer-col">
+        <h4>Contáctanos</h4>
+        <a href="mailto:clientes.tomatetomate@gmail.com" class="email-link">
+          <i class="fas fa-envelope"></i> clientes.tomatetomate@gmail.com
+        </a>
+        <p style="font-size:12px;color:#aaa;margin-top:4px;">Para alianzas, sugerencias o preguntas generales</p>
+        <h4 style="margin-top:18px;">Síguenos</h4>
+        <div class="social-row">
+          <a href="https://web.facebook.com/tomate.tomate.saludable/" class="soc-icon fb" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/tomate_tomate_saludable" class="soc-icon ig" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://api.whatsapp.com/send/?phone=573196171825" class="soc-icon wa" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="tt-footer-bottom">
+      <p>© 2026 Tómate Tomate · Todos los derechos reservados</p>
+      <div class="footer-links">
+        <a href="#">Preguntas frecuentes</a>
+        <a href="#">Política de privacidad</a>
+        <a href="#">Términos y condiciones</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script>
+  // ── BARRA DE PROGRESO ──
+  const progressBar = document.getElementById('progress-bar');
+  const article = document.querySelector('.article-body');
+
+  window.addEventListener('scroll', () => {
+    const articleTop = article.offsetTop;
+    const articleHeight = article.offsetHeight;
+    const scrolled = window.scrollY - articleTop;
+    const percent = Math.min(Math.max((scrolled / articleHeight) * 100, 0), 100);
+    progressBar.style.width = percent + '%';
+  });
+
+  // ── ÍNDICE COLAPSABLE ──
+  document.getElementById('tocToggle').addEventListener('click', () => {
+    document.getElementById('toc').classList.toggle('collapsed');
+  });
+
+  // ── RESALTAR SECCIÓN ACTIVA EN EL ÍNDICE ──
+  const sections = document.querySelectorAll('.article-body h2[id]');
+  const tocLinks = document.querySelectorAll('.toc-list a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tocLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.toc-list a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  // ── COPIAR ENLACE ──
+  function copyLink() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '✅ ¡Enlace copiado!';
+      setTimeout(() => btn.textContent = '🔗 Copiar enlace', 2000);
+    });
+  }
+
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwaVXRTvshEKuszV9_aEGC3hVGcRNacTe4PcrQTlHG4DV_rrVoLzcLzy3DhJbQoTXPm/exec";
+  const PAGE_ID    = "tomate-tomate-articulo";
+
+  /* ── Cargar comentarios ── */
+  async function cargarComentarios() {
+    const lista = document.getElementById("comments-list");
+    try {
+      const res  = await fetch(SCRIPT_URL + "?pagina=" + PAGE_ID);
+      const data = await res.json();
+
+      const filtrados = data.filter(c => c.articulo === PAGE_ID);
+
+      if (filtrados.length === 0) {
+        lista.innerHTML = '<p class="comments-empty">Sé el primero en comentar.</p>';
+        return;
+      }
+
+      lista.innerHTML = filtrados.map(c => {
+        const inicial = (c.nombre || "A")[0].toUpperCase();
+        const fecha   = new Date(c.fecha).toLocaleDateString("es-CO", {
+          day: "numeric", month: "short", year: "numeric"
+        });
+        return `
+          <div class="comment-card">
+            <div class="comment-avatar">${inicial}</div>
+            <div class="comment-content">
+              <p class="comment-author">
+                ${c.nombre || "Anónimo"}
+                <span>· ${fecha}</span>
+              </p>
+              <p class="comment-text">${c.comentario}</p>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+    } catch (err) {
+      lista.innerHTML = '<p class="comments-empty">No se pudieron cargar los comentarios.</p>';
+    }
+  }
+
+  /* ── Enviar comentario ── */
+  async function enviarComentario() {
+    const nombre     = document.getElementById("comment-name").value.trim();
+    const comentario = document.getElementById("comment-text").value.trim();
+    const btn        = document.getElementById("btn-enviar");
+    const msg        = document.getElementById("comments-message");
+
+    msg.className = "comments-message";
+    msg.textContent = "";
+
+    if (comentario.length < 20) {
+      msg.textContent = "El comentario debe tener al menos 20 caracteres.";
+      msg.className = "comments-message error";
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Enviando...";
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre:     nombre || "Anónimo",
+          comentario: comentario,
+          articulo:   PAGE_ID
+        })
+      });
+
+      msg.textContent = "¡Comentario enviado! Aparecerá en unos momentos si cumple las normas.";
+      msg.className = "comments-message ok";
+      document.getElementById("comment-name").value = "";
+      document.getElementById("comment-text").value = "";
+
+      setTimeout(cargarComentarios, 4000);
+
+    } catch (err) {
+      msg.textContent = "Hubo un error al enviar. Intenta de nuevo.";
+      msg.className = "comments-message error";
+    }
+
+    btn.disabled = false;
+    btn.textContent = "Comentar";
+  }
+
+  /* ── Iniciar ── */
+  cargarComentarios();
+</script>
+
+</body>
+</html>

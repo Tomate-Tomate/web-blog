@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>¿Por qué sabemos qué es “comer bien” pero no lo hacemos? — Tómate Tomate</title>
+<meta name="description" content="Cada decisión de compra es susceptible a fuerzas sociales, cognitivas, afectivas y ambientales. La decisión de compra sobre comida no es exenta a esto.">
+<meta name="author" content="Tómate Tomate">
+
+<!-- Open Graph: previsualización al compartir en redes -->
+<meta property="og:title" content="¿Por qué sabemos qué es “comer bien” pero no lo hacemos? — Tómate Tomate">
+<meta property="og:description" content="Cada decisión de compra es susceptible a fuerzas sociales, cognitivas, afectivas y ambientales. La decisión de compra sobre comida no es exenta a esto.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://tuusuario.github.io/tomate-tomate/articulos/efecto-mariposa.html">
+<meta property="og:image" content="https://tuusuario.github.io/tomate-tomate/img/efecto-mariposa.jpg">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --naranja: #E8520A;
+    --naranja-hover: #C94408;
+    --naranja-light: #FDF0E8;
+    --naranja-mid: #F5A97A;
+    --verde: #40A629;
+    --verde-mid: #2E6B42;
+    --verde-light: #EAF2EC;
+    --rojo: #8B1A1A;
+    --crema: #FAF6F0;
+    --blanco: #FFFFFF;
+    --texto: #1A1208;
+    --texto-mid: #4A3820;
+    --texto-suave: #8A7560;
+    --borde: #EAE0D4;
+    --col-lectura: 680px; /* UX: ~65 chars por línea, óptimo para lectura */
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--crema);
+    color: var(--texto);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ──────────────────────────────────────
+     PROGRESO DE LECTURA
+     UX: el lector sabe cuánto le queda
+  ────────────────────────────────────── */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--naranja), var(--naranja-mid));
+    z-index: 9999;
+    transition: width 0.08s linear;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ──────────────────────────────────────
+     NAV
+     UX: navegación mínima, sin distracciones
+  ────────────────────────────────────── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    background: rgba(250,246,240,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--borde);
+  }
+
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--naranja);
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .nav-logo span { color: var(--verde); font-style: italic; }
+
+  /* UX: breadcrumb para orientación */
+  .nav-breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--texto-suave);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .nav-breadcrumb a { color: var(--texto-suave); text-decoration: none; transition: color 0.2s; }
+  .nav-breadcrumb a:hover { color: var(--naranja); }
+  .nav-breadcrumb .sep { color: var(--borde); }
+  .nav-breadcrumb .current { color: var(--naranja); }
+
+  /* UX: tiempo de lectura visible desde el nav */
+  .nav-reading-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--texto-suave);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 600px) {
+    .nav-breadcrumb { display: none; }
+  }
+
+  /* ──────────────────────────────────────
+     HERO DEL ARTÍCULO
+  ────────────────────────────────────── */
+  .article-hero {
+    background: var(--verde);
+    padding: 3.5rem 1.5rem 3rem;
+    text-align: center;
+  }
+
+  .hero-inner {
+    max-width: var(--col-lectura);
+    margin: 0 auto;
+  }
+
+  .hero-cat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(232,82,10,0.2);
+    border: 1px solid rgba(232,82,10,0.35);
+    color: var(--naranja-mid);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 900;
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+  }
+  .hero-title em { color: var(--naranja-mid); font-style: italic; }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.7);
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  /* UX: metadatos del artículo bien visibles */
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.5);
+  }
+  .meta-item .icon { font-size: 0.9rem; }
+  .meta-sep { color: rgba(255,255,255,0.2); }
+
+  /* ──────────────────────────────────────
+     SHARE — encima del artículo
+     UX: capturar intención antes de leer
+  ────────────────────────────────────── */
+  .share-top {
+    max-width: var(--col-lectura);
+    margin: 0 auto;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--borde);
+  }
+
+  .share-top-text {
+    font-size: 0.82rem;
+    color: var(--texto-suave);
+  }
+.btn-facebook {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #1877F2;
+  color: white;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-facebook:hover { background: #1459b8; transform: translateY(-1px); }
+
+.btn-instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #c13584;
+  color: white;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-instagram:hover { background: #962a68; transform: translateY(-1px); }
+
+
+  /* ──────────────────────────────────────
+     ÍNDICE DE CONTENIDOS
+     UX: orientación y salto rápido
+  ────────────────────────────────────── */
+  .toc-wrap {
+    max-width: var(--col-lectura);
+    margin: 2rem auto 0;
+    padding: 0 1.5rem;
+  }
+
+  .toc {
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-left: 3px solid var(--naranja);
+    border-radius: 6px;
+    padding: 1.2rem 1.5rem;
+  }
+
+  .toc-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--naranja);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .toc-toggle { margin-left: auto; font-size: 0.8rem; transition: transform 0.2s; }
+  .toc.collapsed .toc-toggle { transform: rotate(-90deg); }
+  .toc.collapsed .toc-list { display: none; }
+
+  .toc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .toc-list li a {
+    font-size: 0.88rem;
+    color: var(--texto-mid);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.2rem 0;
+    transition: color 0.2s;
+  }
+  .toc-list li a::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--borde);
+    flex-shrink: 0;
+    transition: background 0.2s, width 0.2s;
+  }
+  .toc-list li a:hover { color: var(--naranja); }
+  .toc-list li a:hover::before { background: var(--naranja); width: 22px; }
+  .toc-list li a.active { color: var(--naranja); font-weight: 500; }
+  .toc-list li a.active::before { background: var(--naranja); }
+
+  /* ──────────────────────────────────────
+     CUERPO DEL ARTÍCULO
+     UX: tipografía y espaciado para lectura larga
+  ────────────────────────────────────── */
+  .article-body {
+    max-width: var(--col-lectura);
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 1rem;
+  }
+
+  /* Párrafos */
+  .article-body p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--texto-mid);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Títulos de sección */
+  .article-body h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--texto);
+    margin: 2.5rem 0 1rem;
+    line-height: 1.25;
+    scroll-margin-top: 80px; /* UX: offset para nav sticky */
+  }
+
+  .article-body h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--verde);
+    margin: 2rem 0 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Destacado / lead */
+  .article-body .lead {
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--texto);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    border-left: 3px solid var(--naranja);
+    padding-left: 1.2rem;
+  }
+
+  /* Cita destacada */
+  .article-body blockquote {
+    margin: 2rem 0;
+    padding: 1.5rem 1.8rem;
+    background: var(--naranja-light);
+    border-left: 4px solid var(--naranja);
+    border-radius: 0 6px 6px 0;
+  }
+  .article-body blockquote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--texto);
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.6;
+  }
+  .article-body blockquote cite {
+    display: block;
+    margin-top: 0.8rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--texto-suave);
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Dato destacado (callout) */
+  .callout {
+    background: var(--verde-light);
+    border: 1px solid rgba(29,74,46,0.2);
+    border-radius: 8px;
+    padding: 1.3rem 1.5rem;
+    margin: 2rem 0;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .callout-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .callout-text {
+    font-size: 0.92rem;
+    color: var(--verde);
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  .callout-text strong { font-weight: 600; }
+
+  /* Separador visual */
+  .article-body hr {
+    border: none;
+    border-top: 1px solid var(--borde);
+    margin: 2.5rem 0;
+  }
+
+  /* Links en texto */
+  .article-body a {
+    color: var(--naranja);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .article-body a:hover { color: var(--naranja-hover); }
+
+  /* ──────────────────────────────────────
+     TAGS DEL ARTÍCULO
+  ────────────────────────────────────── */
+  .article-tags {
+    max-width: var(--col-lectura);
+    margin: 0 auto;
+    padding: 0 1.5rem 2rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .tags-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--texto-suave);
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    font-family: 'DM Mono', monospace;
+    padding: 0.25rem 0.7rem;
+    border-radius: 3px;
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    color: var(--texto-suave);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .tag:hover { border-color: var(--naranja); color: var(--naranja); }
+
+/* ──────────────────────────────────────
+   BLOQUE DE COMENTARIOS
+   UX: conversación integrada naturalmente
+   ────────────────────────────────────── */
+.comments-section {
+  max-width: var(--col-lectura);
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+}
+
+.comments-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.comments-divider::before,
+.comments-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--borde);
+}
+.comments-divider-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--texto-suave);
+  white-space: nowrap;
+}
+
+.comments-card {
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.comments-header {
+  background: #000;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.comments-header-text { flex: 1; min-width: 200px; }
+
+.comments-header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.4rem;
+}
+
+.comments-header p {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+.comments-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.comments-empty {
+  text-align: center;
+  padding: 2rem;
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+  font-family: 'DM Mono', monospace;
+}
+
+/* Tarjetas de comentarios */
+.comment-card {
+  display: flex;
+  gap: 0.8rem;
+  padding: 1rem;
+  background: var(--crema);
+  border-radius: 6px;
+  border: 1px solid var(--borde);
+}
+
+.comment-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--naranja);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  color: white;
+  font-weight: 700;
+  font-family: 'DM Mono', monospace;
+}
+
+.comment-content { flex: 1; }
+
+.comment-author {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--texto);
+  margin-bottom: 0.3rem;
+}
+.comment-author span {
+  font-weight: 300;
+  color: var(--texto-suave);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+}
+
+.comment-text {
+  font-size: 0.88rem;
+  color: var(--texto-mid);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* Formulario */
+.comments-form-section {
+  padding: 1.5rem;
+  border-top: 1px solid var(--borde);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.comments-form-section h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--texto);
+  margin-bottom: 0.2rem;
+}
+
+.comments-form-section input,
+.comments-form-section textarea {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  background: var(--crema);
+  color: var(--texto);
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+  resize: vertical;
+}
+
+.comments-form-section input:focus,
+.comments-form-section textarea:focus {
+  outline: none;
+  border-color: var(--naranja);
+}
+
+.btn-comentar {
+  align-self: flex-start;
+  background: #000;
+  color: white;
+  padding: 0.7rem 1.6rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  font-family: inherit;
+}
+.btn-comentar:hover {
+  background: var(--naranja);
+  transform: translateY(-1px);
+}
+.btn-comentar:disabled {
+  background: var(--borde);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.comments-message {
+  font-size: 0.82rem;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  display: none;
+}
+.comments-message.ok {
+  background: #e6f4ea;
+  color: #2d6a4f;
+  display: block;
+}
+.comments-message.error {
+  background: #fdecea;
+  color: #b71c1c;
+  display: block;
+}
+
+
+  /* ──────────────────────────────────────
+     COMPARTIR AL FINAL
+     UX: segundo momento de conversión
+  ────────────────────────────────────── */
+  .share-bottom {
+    background: var(--naranja);
+    margin: 0;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+  }
+
+  .share-bottom-inner {
+    max-width: var(--col-lectura);
+    margin: 0 auto;
+  }
+
+  .share-bottom h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+
+  .share-bottom p {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .share-btns {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-share-x {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #000;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-share-x:hover { background: #222; }
+
+  .btn-copy-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-copy-link:hover { background: rgba(255,255,255,0.25); }
+
+  /* ──────────────────────────────────────
+     ARTÍCULOS RELACIONADOS
+     UX: retención, siguiente paso claro
+  ────────────────────────────────────── */
+  .related {
+    background: var(--verde);
+    padding: 3rem 1.5rem;
+  }
+
+  .related-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .related-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 0.5rem;
+  }
+
+  .related-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 2rem;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .related-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .related-card:hover {
+    background: rgba(255,255,255,0.12);
+    transform: translateY(-3px);
+  }
+
+  .related-thumb {
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+  }
+
+  .bg-naranja { background: linear-gradient(135deg, #E8520A, #F5A97A); }
+  .bg-rojo    { background: linear-gradient(135deg, #8B1A1A, #C0392B); }
+  .bg-cafe    { background: linear-gradient(135deg, #6B4A1A, #A07840); }
+
+  .related-info {
+    padding: 1rem;
+    flex: 1;
+  }
+
+  .related-cat {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--naranja-mid);
+    margin-bottom: 0.4rem;
+  }
+
+  .related-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+
+  .related-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ──────────────────────────────────────
+     FOOTER
+  ────────────────────────────────────── */
+.tt-footer { background: #FEE7B1; border-top: 5px solid var(--naranja); }
+.tt-footer-inner { max-width: 1200px; margin: 0 auto; padding: 40px 30px 20px; }
+.tt-footer-top { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; padding-bottom: 30px; border-bottom: 1px solid rgba(248,105,64,0.2); }
+.tt-footer-brand img { height: 55px; margin-bottom: 10px; display: block; }
+.tt-footer-brand p { font-size: 13px; color: #666; line-height: 1.6; max-width: 210px; }
+.tt-footer-col h4 { font-size: 11px; font-weight: 700; color: var(--naranja); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
+.tt-footer-col p, .tt-footer-col li { font-size: 13px; color: #555; line-height: 1.9; list-style: none; }
+.tt-footer-col ul { padding: 0; }
+.zona-tag-sm { display: inline-block; background: var(--naranja); color: white; font-size: 11px; padding: 3px 10px; border-radius: 20px; margin: 2px 2px 2px 0; font-weight: 600; }
+.email-link { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; text-decoration: none; margin-bottom: 6px; transition: color 0.2s; }
+.email-link:hover { color: var(--naranja); }
+.email-link i { color: var(--naranja); width: 16px; }
+.social-row { display: flex; gap: 8px; margin-top: 10px; }
+.soc-icon { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 14px; transition: transform 0.2s, opacity 0.2s; }
+.soc-icon:hover { transform: scale(1.1); opacity: 0.9; }
+.soc-icon.fb { background: #3b5998; }
+.soc-icon.ig { background: #c13584; }
+.soc-icon.wa { background: #25D366; }
+.soc-icon.th { background: #0a0a0a; }
+.tt-footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 18px; flex-wrap: wrap; gap: 10px; }
+.tt-footer-bottom p { font-size: 12px; color: #999; }
+.footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.footer-links a { font-size: 12px; color: #999; text-decoration: none; }
+.footer-links a:hover { color: var(--naranja); }
+ 
+@media (max-width: 768px) {
+  .tt-footer-top { grid-template-columns: 1fr; gap: 24px; }
+  .tt-footer-brand p { max-width: 100%; }
+  .tt-footer-bottom { flex-direction: column; align-items: center; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tt-footer-top { grid-template-columns: 1fr 1fr; }
+  .tt-footer-brand { grid-column: 1 / -1; }
+}
+
+  /* ──────────────────────────────────────
+     RESPONSIVE
+  ────────────────────────────────────── */
+  @media (max-width: 760px) {
+    .related-grid { grid-template-columns: 1fr; }
+    .comments-header { flex-direction: column; }
+    .btn-x-large { width: 100%; justify-content: center; }
+  }
+
+  @media (max-width: 500px) {
+    .article-body p { font-size: 1rem; }
+    .article-body h2 { font-size: 1.3rem; }
+    .share-btns { flex-direction: column; align-items: center; }
+    .btn-share-x, .btn-copy-link { width: 100%; justify-content: center; }
+    .hero-meta { gap: 0.8rem; }
+    .meta-sep { display: none; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- PROGRESO DE LECTURA -->
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+          <div id="tt-logo-container" title="Logo" class="tt-logo-container">
+            <a id="i02g1" title="Tómate Tomate" href="landing-tomate.html"><img src="https://drive.google.com/thumbnail?id=19u00Nz1w-MgIUmQbGZnLZ_uyMq1hmgaj" alt="Tómate Tomate" id="ixz46" class="tt-logo"/>
+              </div></a>
+    <nav class="nav-breadcrumb">
+      <a href="tomate-tomate-listado_articulos.html">Artículos</a>
+      <span class="sep">›</span>
+      <span class="current">Marketing Social</span>
+    </nav>
+    <span class="nav-reading-time">⏱ 10 min lectura</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="article-hero">
+  <div class="hero-inner">
+    <span class="hero-cat">📊 Marketing Social</span>
+    <h1 class="hero-title">¿Por qué sabemos qué es “comer bien” pero no lo hacemos?<br><em>Una mirada desde la psicología del consumidor</em></h1>
+    <p class="hero-subtitle">Cada decisión de compra es susceptible a fuerzas sociales, cognitivas, afectivas y ambientales. La decisión de compra sobre comida no es exenta a esto.</p>
+    <div class="hero-meta">
+      <span class="meta-item"><span class="icon">📅</span> 24 Jul 2026</span>
+      <span class="meta-sep">·</span>
+      <span class="meta-item"><span class="icon">⏱</span> 10 min lectura</span>
+      <span class="meta-sep">·</span>
+      <span class="meta-item"><span class="icon">✍️</span> Tómate Tomate</span>
+    </div>
+  </div>
+</header>
+
+<!-- SHARE TOP -->
+<div class="share-top">
+  <p class="share-top-text">¿Te parece interesante? Compártelo antes de leer 🍅</p>
+<a href="https://www.facebook.com/sharer/sharer.php?u=TU-URL" target="_blank" class="btn-facebook">
+  📘 Facebook
+</a>
+<a href="https://www.instagram.com" target="_blank" class="btn-instagram">
+  📸 Instagram
+</a>
+</div>
+
+<!-- ÍNDICE -->
+<div class="toc-wrap">
+  <div class="toc" id="toc">
+    <div class="toc-title" id="tocToggle">
+      📋 Contenido del artículo
+      <span class="toc-toggle">▾</span>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#intro" id="toc-intro">¿Por qué sabemos qué es “comer bien” pero no lo hacemos?</a></li>
+      <li><a href="#VidaReal" id="toc-VidaReal">¿Y entonces, cómo se traduce esto en la vida real?</a></li>
+      <li><a href="#conclusion" id="toc-conclusion">Conclusión</a></li>
+      <li><a href="#referencias" id="toc-referencias">Referencias</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- CUERPO DEL ARTÍCULO -->
+<article class="article-body">
+
+  <p class="lead">
+    Los consumidores que tratan de controlar la alimentación tienen un reto constante, debido a que deben decidir en entornos donde la oferta de alimentos es grande, diversa y muy tentadora. Decidir qué comer no es fácil. Decidir qué comer implica una interacción de factores. Cada día las personas están expuestas a influencias de la sociedad, de la mente, de los sentimientos y del entorno y estas influencias terminan interfiriendo con la intención de las personas de comer bien.
+  </p>
+
+  <h2 id="intro">¿Por qué sabemos qué es “comer bien” pero no lo hacemos?</h2>
+  <p>
+    Una de las influencias para entender este fenómeno está en la diferencia entre dos tipos de consumo: el consumo utilitario y el consumo hedónico. Según Lim y Ang (2008), en el consumo utilitario, las personas eligen solo por necesidad. Mientras, que el consumo hedónico se relaciona con el placer, la diversión y las sensaciones que produce un producto o un servicio. De acuerdo a esto, las personas eligen por el gusto, la estética, los significados y/o las experiencias sensoriales que el alimento ofrece. Desde este punto de vista, no es raro. Las elecciones de comida se inclinan más hacia el placer que hacia la salud.
+  </p>
+  <p>
+   La variedad cuenta. Levy y Köster (1999) mostraron que las personas prefieren opciones, como las bebidas, cuando buscan probar sensaciones o evitar la monotonía. Las personas buscan variedad cuando quieren cambiar. La búsqueda de variedad no es solo una necesidad, también es un deseo de placer. Esa búsqueda de variedad puede alejar a los consumidores de elecciones que no cambian o que favorecen la salud. 
+  </p>
+  <p>
+    Otro factor es la publicidad. La publicidad no solo influye en lo que consumimos, también influye en cómo percibimos los comportamientos. Stibbe (2012) mostró que, aun cuando se promueven los hábitos de salud, como en las revistas de bienestar masculino, aparecen los mensajes que se contradicen. Por un lado, la revista ofrece recomendaciones para cuidar la salud (como información para evitar el consumo excesivo de carne y alcohol y la dependencia de la comida precocida). Por otro lado, los anuncios insertos en ella, muestran un entorno propicio para la venta de moda, artículos de lujo y coches de lujo. Esa combinación hace que la gente sienta ansiedad por la imagen corporal y por la autoestima. También hace que la gente vea con buenos ojos los comportamientos que la revista informa que la gente debería evitar.
+  </p>
+  <p>
+    Al final, hay una brecha entre la preocupación de la gente por la alimentación y el conocimiento real de la alimentación. La gente se interesa por la seguridad de la alimentación, pero no siempre tiene la información que necesita para tomar decisiones informadas. Según Lan, Zhu y Zhao (2020), la gestión del etiquetado y la protección de los derechos del consumidor pueden elevar la conciencia sobre los temas. Pero la forma en que se muestra la información también afecta la percepción.
+  </p>
+  <p>
+    Por ejemplo, Castellini, Savarese y Graffigna (2023) descubrieron que las etiquetas con el mensaje “sin ciertos ingredientes” se interpretan como señal de más calidad o más saludable, aunque la persona no sea consciente del ingrediente eliminado. Esa interpretación hace que los consumidores vean el producto como más saludable y permite que esa visión del producto influya directamente en la decisión de compra del consumidor.
+  </p>
+
+  <h2 id="VidaReal">¿Y entonces, cómo se traduce esto en la vida real?</h2>
+  <blockquote>
+    <p>Si sabemos qué es comer bien, pero aun así no lo hacemos, no es solo una cuestión de falta de disciplina. Es el resultado de un entorno que constantemente empuja nuestras decisiones hacia lo inmediato, lo placentero y lo fácil.</p>
+  </blockquote>
+  <p>
+    Si el consumo está influenciado por lo sensorial, lo visual y lo emocional, entonces la alimentación saludable también debe serlo. Por eso, la idea no es oponerse al placer, sino integrarlo: ofrecer opciones que no solo sean saludables, sino también atractivas, variadas y satisfactorias.
+  </p>
+  <p>
+    Si la variedad influye en la decisión, entonces se convierte en una herramienta: combinaciones diferentes, ingredientes frescos y posibilidades de personalización que mantengan el interés y eviten la monotonía.
+  </p>
+  <p>
+    Si la publicidad y el entorno generan confusión, entonces la transparencia se vuelve clave: comunicar claramente qué contiene cada producto, cómo aporta al bienestar y por qué fue diseñado así.
+  </p>
+  <p>
+    Y si existe una brecha entre lo que creemos y lo que realmente sabemos sobre alimentación, entonces el punto de venta también puede ser un espacio educativo: un lugar donde no solo se compra comida, sino donde se construyen criterios.
+  </p>
+  <div class="callout">
+    <span class="callout-icon">💡</span>
+    <p class="callout-text"><strong>Para reflexionar:</strong> ¿Y si el problema no es la persona, sino el contexto en el que decide?, ¿Y si comer bien no debería depender únicamente de la fuerza de voluntad?
+</p>
+  </div>
+
+  <h2 id="conclusion">Conclusión</h2>
+  <p>
+    Desde esta mirada nace Tómate Tomate. No como un negocio que “vende ensaladas”, sino como una propuesta que busca reducir esa fricción entre la intención y la acción. En ese sentido, Tómate Tomate no busca imponer una forma de comer, sino facilitar decisiones más conscientes en medio de un entorno que muchas veces juega en contra.
+  </p>
+  <p>
+    Porque al final, comer bien no debería ser un esfuerzo constante… sino una opción accesible.
+  </p>
+
+  <h2 id="referencias">Referencias</h2>
+  <p>
+    Castellini, G., Savarese, M., & Graffigna, G. (2023). The role of free-from symbols on consumer perceptions of healthiness, quality and intention to buy baked food products. International Journal of Food Sciences & Nutrition, 74(3), 395–402. https://doi-org.ezproxy.uniminuto.edu/10.1080/09637486.2023.2215483
+  </p>
+  <p>
+    Lan, J., Zhu, W., & Zhao, H. (2020). Influence of buyer psychology on the formulation of food safety regulations. Revista Argentina de Clínica Psicológica [Edición Electrónica], 29(2), 374–380. https://doi-org.ezproxy.uniminuto.edu/10.24205/03276716.2020.251
+  </p>
+  <p>
+    Lévy, C. M., & Köster, E. P. (1999). The relevance of initial hedonic judgements in the prediction of subtle food choices. Food Quality and Preference, 10(3), 185-200.
+  </p>
+  <p>
+    Lim, E. A. C., & Ang, S. H. (2008). Hedonic vs. utilitarian consumption: A cross-cultural perspective based on cultural conditioning. Journal of business research, 61(3), 225-232.
+  </p>
+  <p>
+   Stibbe, A. (2012). Advertising, Gender and Health Advice: the Case of Men’s Health in the Year 2000. Journal on Masculinities & Social Change / Masculinidades y Cambio Social, 1(3), 190–209. https://doi-org.ezproxy.uniminuto.edu/10.4471/MCS.2012.13 
+  </p>
+
+</article>
+
+<!-- TAGS -->
+<div class="article-tags">
+  <span class="tags-label">Temas:</span>
+  <a href="#" class="tag">#consumo</a>
+  <a href="#" class="tag">#decisiones-compra</a>
+  <a href="#" class="tag">#publicidad</a>
+  <a href="#" class="tag">#alimentación</a>
+  <a href="#" class="tag">#psicología</a>
+</div>
+
+<!-- Comentarios -->
+<div class="comments-section">
+  <div class="comments-divider">
+    <span class="comments-divider-label">Conversación</span>
+  </div>
+
+  <div class="comments-card">
+
+    <!-- HEADER -->
+    <div class="comments-header">
+      <div class="comments-header-text">
+        <h3>¿Qué piensas?</h3>
+        <p>Tu nombre es opcional. Los comentarios se aprueban automáticamente si cumplen las normas básicas.</p>
+      </div>
+    </div>
+
+    <!-- LISTA DE COMENTARIOS -->
+    <div class="comments-body" id="comments-list">
+      <p class="comments-empty">Cargando comentarios...</p>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="comments-form-section">
+      <h4>Deja tu comentario</h4>
+      <input
+        type="text"
+        id="comment-name"
+        placeholder="Tu nombre (opcional)"
+        maxlength="50"
+      />
+      <textarea
+        id="comment-text"
+        placeholder="¿Qué opinas? (mínimo 20 caracteres)"
+        rows="4"
+        maxlength="1000"
+      ></textarea>
+      <button class="btn-comentar" id="btn-enviar" onclick="enviarComentario()">
+        Comentar
+      </button>
+      <p class="comments-message" id="comments-message"></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- SHARE BOTTOM -->
+<div class="share-bottom">
+  <div class="share-bottom-inner">
+    <h3>¿Te gustó este artículo?</h3>
+    <p>Compártelo con alguien a quien le importe lo que come y lo que consume.</p>
+    <div class="share-btns">
+      <a href="https://www.facebook.com/sharer/sharer.php?u=TU-URL" target="_blank" rel="noopener" class="btn-share-x" style="background:#1877F2;">
+  📘 Facebook
+</a>
+<a href="https://www.instagram.com" target="_blank" rel="noopener" class="btn-share-x" style="background:#c13584;">
+  📸 Instagram
+</a>
+      <button class="btn-copy-link" id="copyBtn" onclick="copyLink()">
+        🔗 Copiar enlace
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ARTÍCULOS PUBLICADOS -->
+<section class="related">
+  <div class="related-inner">
+    <p class="related-label">Sigue leyendo</p>
+    <h2 class="related-title">Artículos publicados</h2>
+    <div class="related-grid">
+      <a href="Querer consumo sostenible pero no.html" class="related-card">
+        <div class="related-thumb bg-rojo">🌲</div>
+        <div class="related-info">
+          <p class="related-cat">Eco Consciencia</p>
+          <h3 class="related-card-title">Por qué queremos consumir de forma sostenible, pero no lo hacemos</h3>
+          <p class="related-meta">12 min · 24 Jul 2026</p>
+        </div>
+      </a>
+      <a href="Industria Comer sano y salud mental.html" class="related-card">
+        <div class="related-thumb bg-cafe">🥦</div>
+        <div class="related-info">
+          <p class="related-cat">Marketing Social</p>
+          <h3 class="related-card-title">La industria del “comer sano”: cuándo ayuda y cuándo daña nuestra salud mental</h3>
+          <p class="related-meta">11 min · 24 Jul 2026</p>
+        </div>
+      </a>
+      <a href="5 decisiones alimentaria en automatico.html" class="related-card">
+        <div class="related-thumb bg-naranja">🍕</div>
+        <div class="related-info">
+          <p class="related-cat">Psicología y Alimentación</p>
+          <h3 class="related-card-title">5 decisiones alimentarias que tomamos en automático</h3>
+          <p class="related-meta">14 min · 24 Jul 2026</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+     <footer class="tt-footer">
+  <div class="tt-footer-inner">
+    <div class="tt-footer-top">
+      <div class="tt-footer-brand">
+        <a href="#hero"><img src="https://drive.google.com/thumbnail?id=1fM_iYOuVT-tqTnFM2vW6zbgWUkaktxGy" alt="Tómate Tomate"></a>
+        <p>Ensaladas frescas como complemento de tu almuerzo. Ingredientes reales, sabor consciente.</p>
+      </div>
+      <div class="tt-footer-col">
+        <h4>Zona de cobertura</h4>
+        <div style="margin-top:6px;">
+          <span class="zona-tag-sm">San Cristóbal</span>
+          <span class="zona-tag-sm">Altablanca</span>
+          <span class="zona-tag-sm">Santa Teresa</span>
+        </div>
+        <p style="font-size:11px;color:#aaa;margin-top:8px;">Bogotá · UPZ Toberín</p>
+      </div>
+      <div class="tt-footer-col">
+        <h4>Contáctanos</h4>
+        <a href="mailto:clientes.tomatetomate@gmail.com" class="email-link">
+          <i class="fas fa-envelope"></i> clientes.tomatetomate@gmail.com
+        </a>
+        <p style="font-size:12px;color:#aaa;margin-top:4px;">Para alianzas, sugerencias o preguntas generales</p>
+        <h4 style="margin-top:18px;">Síguenos</h4>
+        <div class="social-row">
+          <a href="https://web.facebook.com/tomate.tomate.saludable/" class="soc-icon fb" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/tomate_tomate_saludable" class="soc-icon ig" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://api.whatsapp.com/send/?phone=573196171825" class="soc-icon wa" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="tt-footer-bottom">
+      <p>© 2026 Tómate Tomate · Todos los derechos reservados</p>
+      <div class="footer-links">
+        <a href="#">Preguntas frecuentes</a>
+        <a href="#">Política de privacidad</a>
+        <a href="#">Términos y condiciones</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script>
+  // ── BARRA DE PROGRESO ──
+  const progressBar = document.getElementById('progress-bar');
+  const article = document.querySelector('.article-body');
+
+  window.addEventListener('scroll', () => {
+    const articleTop = article.offsetTop;
+    const articleHeight = article.offsetHeight;
+    const scrolled = window.scrollY - articleTop;
+    const percent = Math.min(Math.max((scrolled / articleHeight) * 100, 0), 100);
+    progressBar.style.width = percent + '%';
+  });
+
+  // ── ÍNDICE COLAPSABLE ──
+  document.getElementById('tocToggle').addEventListener('click', () => {
+    document.getElementById('toc').classList.toggle('collapsed');
+  });
+
+  // ── RESALTAR SECCIÓN ACTIVA EN EL ÍNDICE ──
+  const sections = document.querySelectorAll('.article-body h2[id]');
+  const tocLinks = document.querySelectorAll('.toc-list a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tocLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.toc-list a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  // ── COPIAR ENLACE ──
+  function copyLink() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '✅ ¡Enlace copiado!';
+      setTimeout(() => btn.textContent = '🔗 Copiar enlace', 2000);
+    });
+  }
+
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwaVXRTvshEKuszV9_aEGC3hVGcRNacTe4PcrQTlHG4DV_rrVoLzcLzy3DhJbQoTXPm/exec";
+  const PAGE_ID    = "tomate-tomate-articulo";
+
+  /* ── Cargar comentarios ── */
+  async function cargarComentarios() {
+    const lista = document.getElementById("comments-list");
+    try {
+      const res  = await fetch(SCRIPT_URL + "?pagina=" + PAGE_ID);
+      const data = await res.json();
+
+      const filtrados = data.filter(c => c.articulo === PAGE_ID);
+
+      if (filtrados.length === 0) {
+        lista.innerHTML = '<p class="comments-empty">Sé el primero en comentar.</p>';
+        return;
+      }
+
+      lista.innerHTML = filtrados.map(c => {
+        const inicial = (c.nombre || "A")[0].toUpperCase();
+        const fecha   = new Date(c.fecha).toLocaleDateString("es-CO", {
+          day: "numeric", month: "short", year: "numeric"
+        });
+        return `
+          <div class="comment-card">
+            <div class="comment-avatar">${inicial}</div>
+            <div class="comment-content">
+              <p class="comment-author">
+                ${c.nombre || "Anónimo"}
+                <span>· ${fecha}</span>
+              </p>
+              <p class="comment-text">${c.comentario}</p>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+    } catch (err) {
+      lista.innerHTML = '<p class="comments-empty">No se pudieron cargar los comentarios.</p>';
+    }
+  }
+
+  /* ── Enviar comentario ── */
+  async function enviarComentario() {
+    const nombre     = document.getElementById("comment-name").value.trim();
+    const comentario = document.getElementById("comment-text").value.trim();
+    const btn        = document.getElementById("btn-enviar");
+    const msg        = document.getElementById("comments-message");
+
+    msg.className = "comments-message";
+    msg.textContent = "";
+
+    if (comentario.length < 20) {
+      msg.textContent = "El comentario debe tener al menos 20 caracteres.";
+      msg.className = "comments-message error";
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Enviando...";
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre:     nombre || "Anónimo",
+          comentario: comentario,
+          articulo:   PAGE_ID
+        })
+      });
+
+      msg.textContent = "¡Comentario enviado! Aparecerá en unos momentos si cumple las normas.";
+      msg.className = "comments-message ok";
+      document.getElementById("comment-name").value = "";
+      document.getElementById("comment-text").value = "";
+
+      setTimeout(cargarComentarios, 4000);
+
+    } catch (err) {
+      msg.textContent = "Hubo un error al enviar. Intenta de nuevo.";
+      msg.className = "comments-message error";
+    }
+
+    btn.disabled = false;
+    btn.textContent = "Comentar";
+  }
+
+  /* ── Iniciar ── */
+  cargarComentarios();
+</script>
+
+</body>
+</html>

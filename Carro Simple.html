@@ -1,0 +1,1067 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carrito de Compras Tómate Tomate</title>
+  <style>
+:root {
+  --naranja: #F86940;
+  --verde: #40A629;
+  --amarillo: #FFF4D8;
+  --amarillo-oscuro: #FEE7B1;
+  --texto: #2a2a2a;
+  --texto-suave: #666;
+  --font-display: 'Fraunces', serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--amarillo); color: var(--texto); overflow-x: hidden; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #FFF4D8;
+      padding-top: 100px; /* altura del nav en escritorio */
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .product {
+      background: #FEE7B1;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+.product img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+    .product h3 {
+      margin: 10px 0 5px;
+    }
+
+    .product p {
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    .options {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+
+    select, .quantity {
+      padding: 5px;
+      font-size: 14px;
+    }
+
+    .quantity input {
+      width: 40px;
+      text-align: center;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .details-btn {
+      background-color: #f15a29;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .cart-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .total {
+      text-align: center;
+      font-size: 1.5em;
+      margin: 20px;
+    }
+@media (max-width: 600px) {
+  .options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .details-btn,
+  .cart-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.quantity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.quantity-label {
+  font-weight: normal;
+  font-size: 14px;
+  margin-bottom: 3px;
+  color: #333;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.quantity-controls button {
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.quantity-controls input {
+  -webkit-appearance: none; /* Elimina las flechas en WebKit/Blink browsers (Chrome, Safari) */
+  -moz-appearance: textfield; /* Elimina las flechas en Firefox */
+  appearance: none; /* Elimina las flechas en otros navegadores */
+  width: 50px;
+  height: 30px;
+  text-align: center;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  pointer-events: none; /* Desactiva la interacción directa con el campo */
+}
+
+.option-label,
+.quantity-label {
+  font-weight: normal;
+  font-size: 14px;
+  color: #333;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.size-option {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+#btn-carrito {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  background-color: transparent;
+  border: none;
+  z-index: 10000;
+  cursor: pointer;
+}
+
+#btn-carrito img {
+  width: 40px;
+  height: 40px;
+}
+
+@media (max-width: 768px) {
+  #btn-carrito {
+    top: 10px;
+    right: 10px;
+  }
+}
+.modal {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-contenido {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+}
+
+.cerrar-modal {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.btn-modal,
+.btn-comprar {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-modal {
+  background-color: #f15a29;
+  color: white;
+}
+
+.btn-comprar {
+  background-color: #4CAF50;
+  color: white;
+}
+
+  </style>
+    <style>
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+.tt-header, .tt-header *{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+.tt-header{
+font-family: Arial, sans-serif;
+  background-color: #FFF4D8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Estas líneas lo fijan arriba */
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999; 
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.tt-header-container{
+  width:100%;
+  max-width:1200px;
+  margin:0 auto;
+}
+.tt-logo-menu-container{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+}
+.tt-logo-container{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  position:absolute;
+  z-index:10;
+}
+
+.tt-logo{
+  width:100%;
+  undefined:undefined;
+  max-width:200px;
+  margin-bottom:5px;
+}
+.tt-subtitle{
+  font-size:14px;
+  color:#666;
+  margin-bottom:5px;
+}
+.tt-menu-container{
+  width:100%;
+  display:flex;
+  justify-content:center;
+}
+.tt-menu-box{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.tt-menu-item{
+  text-decoration:none;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  color:#333;
+  font-size:12px;
+  padding:10px;
+  transition:transform 0.3s ease;
+}
+.tt-menu-item:hover{
+  transform:scale(1.1);
+}
+.tt-menu-item img{
+  max-width:30px;
+  margin-bottom:5px;
+}
+#ixz46{
+  margin:0px 0px 5px 0px;
+  max-width:600px;
+}
+#iotdk{
+  padding:10px 20px 10px 20px;
+}
+#in3ff{
+  padding:10px 40px 10px 20px;
+}
+#i7ygl{
+  padding:10px 20px 10px 40px;
+}
+#i7nlj{
+  padding:10px 20px 10px 20px;
+}
+#iy471{
+  max-width:auto;
+}
+@media (min-width: 1028px){
+  .tt-logo-menu-container{
+    height:100px;
+    position:relative;
+  }
+  .tt-logo-container{
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+  }
+  .tt-menu-container{
+    position:absolute;
+    width:100%;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    justify-content:space-between;
+  }
+  .tt-menu-box{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    padding:0 50px;
+  }
+  .tt-menu-item{
+    font-size:14px;
+  }
+  .tt-menu-item img{
+    max-width:70px;
+  }
+  .slide-1 {
+  /* Ajusta este valor según la altura real de tu header */
+  padding-top: 120px !important; 
+}
+}
+@media (max-width: 1027px){
+  .tt-header{
+    padding-top:70px;
+  }
+  .tt-logo-container{
+    position:absolute;
+    top:-50px;
+    left:50%;
+    transform:translateX(-50%);
+  }
+  .tt-logo{
+    max-width:100px;
+  }
+  .tt-subtitle{
+    font-size:12px;
+  }
+  .tt-logo-menu-container{
+    flex-direction:column;
+  }
+  .tt-menu-container{
+    width:100%;
+    margin-top:10px;
+  }
+  .tt-menu-box{
+    gap:15px;
+    flex-wrap:wrap;
+  }
+  .tt-menu-item{
+    font-size:10px;
+  }
+  .tt-menu-item img{
+    max-width:20px;
+  }
+}
+
+  }
+  #ixz46{
+    max-width:400px;
+  }
+  #iy471{
+    max-width:60px;
+  }
+  #ikece{
+    max-width:60px;
+  }
+  #iz3tj{
+    max-width:60px;
+  }
+  #iiqrm{
+    max-width:60px;
+  }
+  #tt-menu-box{
+    padding:0px 0px 0px 0px;
+    width:100%;
+  }
+  .tt-logo{
+    max-width:200px;
+  }
+  .tt-subtitle{
+    font-size:14px;
+  }
+  #in3ff{
+    padding:10px 20px 10px 20px;
+  }
+  #i7ygl{
+    padding:10px 20px 10px 20px;
+  }
+}
+@media (max-width: 992px){
+  #tt-logo-container{
+    top:-54px;
+  }
+  #ixz46{
+    max-width:400px;
+  }
+  #iy471{
+    max-width:60px;
+  }
+  #ikece{
+    max-width:60px;
+  }
+  #iz3tj{
+    max-width:60px;
+  }
+  #iiqrm{
+    max-width:60px;
+  }
+  #tt-menu-box{
+    padding:0px 0px 0px 0px;
+    width:100%;
+  }
+  .tt-logo{
+    max-width:200px;
+  }
+  .tt-subtitle{
+    font-size:14px;
+  }
+  #in3ff{
+    padding:10px 20px 10px 20px;
+  }
+  #i7ygl{
+    padding:10px 20px 10px 20px;
+  }
+}
+@media (max-width: 480px){
+  #tt-logo-container{
+    top:-60px
+  }
+  #iy471{
+    max-width:40px;
+  }
+  #ikece{
+    max-width:40px;
+  }
+  #iz3tj{
+    max-width:40px;
+  }
+  #iiqrm{
+    max-width:40px;
+  }
+  .tt-logo{
+    max-width:150px;
+    width:100%;
+    margin:0px 0px 1px 0px;
+  }
+  .tt-subtitle{
+    font-size:12px;
+  }
+  #in3ff{
+    padding:10px 10px 10px 10px;
+  }
+  #i7nlj{
+    padding:10px 10px 10px 10px;
+  }
+  #iotdk{
+    padding:10px 10px 10px 10px;
+  }
+  #i7ygl{
+    padding:10px 10px 10px 10px;
+  }
+}
+    </style>
+    <style>
+/* Estilos de pie de pagina */
+.tt-footer { background: #FEE7B1; border-top: 5px solid var(--naranja); }
+.tt-footer-inner { max-width: 1200px; margin: 0 auto; padding: 40px 30px 20px; }
+.tt-footer-top { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; padding-bottom: 30px; border-bottom: 1px solid rgba(248,105,64,0.2); }
+.tt-footer-brand img { height: 55px; margin-bottom: 10px; display: block; }
+.tt-footer-brand p { font-size: 13px; color: #666; line-height: 1.6; max-width: 210px; }
+.tt-footer-col h4 { font-size: 11px; font-weight: 700; color: var(--naranja); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
+.tt-footer-col p, .tt-footer-col li { font-size: 13px; color: #555; line-height: 1.9; list-style: none; }
+.tt-footer-col ul { padding: 0; }
+.zona-tag-sm { display: inline-block; background: var(--naranja); color: white; font-size: 11px; padding: 3px 10px; border-radius: 20px; margin: 2px 2px 2px 0; font-weight: 600; }
+.email-link { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; text-decoration: none; margin-bottom: 6px; transition: color 0.2s; }
+.email-link:hover { color: var(--naranja); }
+.email-link i { color: var(--naranja); width: 16px; }
+.social-row { display: flex; gap: 8px; margin-top: 10px; }
+.soc-icon { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 14px; transition: transform 0.2s, opacity 0.2s; }
+.soc-icon:hover { transform: scale(1.1); opacity: 0.9; }
+.soc-icon.fb { background: #3b5998; }
+.soc-icon.ig { background: #c13584; }
+.soc-icon.wa { background: #25D366; }
+.soc-icon.th { background: #0a0a0a; }
+.tt-footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 18px; flex-wrap: wrap; gap: 10px; }
+.tt-footer-bottom p { font-size: 12px; color: #999; }
+.footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.footer-links a { font-size: 12px; color: #999; text-decoration: none; }
+.footer-links a:hover { color: var(--naranja); }
+ 
+@media (max-width: 768px) {
+  .tt-footer-top { grid-template-columns: 1fr; gap: 24px; }
+  .tt-footer-brand p { max-width: 100%; }
+  .tt-footer-bottom { flex-direction: column; align-items: center; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tt-footer-top { grid-template-columns: 1fr 1fr; }
+  .tt-footer-brand { grid-column: 1 / -1; }
+}
+    </style>
+</head>
+<body>
+<!-- Encabezado -->  
+    <div class="tt-header-container">
+      <header id="tt-header" title="Header" class="tt-header">
+        <div class="tt-logo-menu-container">
+          <div id="tt-logo-container" title="Logo" class="tt-logo-container">
+            <a id="i02g1" title="Tómate Tomate" href="landing-tomate.html"><img src="https://drive.google.com/thumbnail?id=19u00Nz1w-MgIUmQbGZnLZ_uyMq1hmgaj" alt="Tómate Tomate" id="ixz46" class="tt-logo"/><div id="tt-subtitle" title="Copi" class="tt-subtitle">ALIMÉNTATE CONSCIENTEMENTE
+              </div></a>
+          </div>
+          <nav id="tt-menu-container" title="menu" class="tt-menu-container">
+            <div id="tt-menu-box" title="menu box" class="tt-menu-box">
+              <a href="Carro Simple.html" id="iotdk" title="Ordena" class="tt-menu-item"><img src="https://drive.google.com/thumbnail?id=12BHneK61YiKBbe3PgYQbkH4Ckq60zeU_" alt="Icono Menú" id="iy471"/></a>
+              <a href="tomate-tomate-listado_articulos.html" id="in3ff" title="Consulta" class="tt-menu-item"><img src="https://drive.google.com/thumbnail?id=1ppwngAzGOXeu3IVTNPJ0LfpRyOzh4tiD" alt="Icono Blog" id="ikece"/></a>
+              <a href="Nosotros.html" id="i7ygl" title="Nosotros" class="tt-menu-item"><img src="https://drive.google.com/thumbnail?id=1DbH7_QhcEksXbgGEeBZ59lN9QsrbuPXX" alt="Icono Nosotros" id="iz3tj"/></a>
+              <a href="Contactanos.html" id="i7nlj" title="Contactanos" class="tt-menu-item"><img src="https://drive.google.com/thumbnail?id=1jM8BjZIPpmBvlPpvWghDEPdfqeWVs7iB" alt="Icono Contáctanos" id="iiqrm"/></a>
+            </div>
+          </nav>
+        </div>
+      </header>
+    </div>
+
+  <main>
+<!-- Botón flotante del carrito -->
+<div class="carrito-flotante">
+  <button id="btn-carrito">
+    <img src="https://drive.google.com/thumbnail?id=12UoQSmESqXOwyPbIvHBznrsQAO0Btl_u" alt="Carrito de compras">
+    <span id="contador-pedido">0</span> <!-- ✅ AGREGA ESTE SPAN -->
+    </button>
+</div>
+  <div class="container" id="product-list">
+    <!-- PRODUCTOS HTML -->
+    <!-- Producto 1 -->
+    <div class="product" data-price="$2200">
+      <img src="https://drive.google.com/thumbnail?id=1FK3vbyCeo8N3GGteel1GBAl1OPYGCb6u" alt="Vegetal">
+      <h3>Vegetal</h3>
+      <p>Una explosión crujiente que despierta tus sentidos. Fresca, chispeante y con un toque ácido que coquetea con tu paladar. La mezcla perfecta entre lo que tu cuerpo agradece y tu antojo aplaude.</p>
+<div class="size-option">
+  <span class="option-label">Tamaño:</span>
+  <select>
+          <option value="2200">Personal: 100 gr.</option>
+          <option value="4000">Dúo: 200 gr.</option>
+          <option value="5700">Trío: 300 gr.</option>
+  </select>
+</div>
+
+<div class="quantity">
+  <span class="quantity-label">Cantidad:</span>
+  <div class="quantity-controls">
+    <button>-</button>
+    <input type="number" value="1" min="1" readonly />
+    <button>+</button>
+  </div>
+</div>
+      <div class="actions">
+      <a href="Ensalada Vegetal.html" class="item-carrusel"><button class="details-btn">Ver detalles</button></a>
+        <button class="cart-btn">
+  🛒 <span class="precio-boton">$ <span class="precio">2200</span></span>
+</button>
+
+      </div>
+    </div>
+
+    <!-- Producto 2 -->
+    <div class="product" data-price="$3200">
+      <img src="https://drive.google.com/thumbnail?id=1niOwiIeH4V37vj67CCjC91UZGWcazr8B" alt="Tropical">
+      <h3>Tropical</h3>
+      <p>Dulce, crujiente y traviesa. Una fiesta de sabores que refresca como brisa caribeña y alegra como fruta recién cortada. Es sol en un plato… con hojas que bailan.</p>
+<div class="size-option">
+  <span class="option-label">Tamaño:</span>
+  <select>
+    <option value="3200">Personal: 100 gr.</option>
+    <option value="6000">Dúo: 200 gr.</option>
+    <option value="8800">Trío: 300 gr.</option>
+  </select>
+</div>
+
+<div class="quantity">
+  <span class="quantity-label">Cantidad:</span>
+  <div class="quantity-controls">
+    <button>-</button>
+    <input type="number" value="1" min="1" readonly />
+    <button>+</button>
+  </div>
+</div>
+      <div class="actions">
+        <a href="Ensalada Tropical.html" class="item-carrusel"><button class="details-btn">Ver detalles</button></a>
+        <button class="cart-btn">
+  🛒 <span class="precio-boton">$ <span class="precio">3200</span></span>
+</button>
+
+      </div>
+    </div>
+    <!-- Producto 3 -->
+    <div class="product" data-price="$2500">
+      <img src="https://drive.google.com/thumbnail?id=1viTqOGCVjtIZHCNMhxORu0D5Y6OPPKr6" alt="Papa">
+      <h3>Papa</h3>
+      <p>Suave, cremosa y con alma de comida casera. Cada bocado es como un abrazo disfrazado de frescura: tierna por dentro, alegre por fuera… y siempre lista para alegrarte el día.</p>
+<div class="size-option">
+  <span class="option-label">Tamaño:</span>
+  <select>
+    <option value="2500">Personal: 100 gr.</option>
+    <option value="4600">Dúo: 200 gr.</option>
+    <option value="6700">Trío: 300 gr.</option>
+  </select>
+</div>
+
+<div class="quantity">
+  <span class="quantity-label">Cantidad:</span>
+  <div class="quantity-controls">
+    <button>-</button>
+    <input type="number" value="1" min="1" readonly />
+    <button>+</button>
+  </div>
+</div>
+      <div class="actions">
+        <a href="Ensalada Papa.html" class="item-carrusel"><button class="details-btn">Ver detalles</button></a>
+        <button class="cart-btn">
+  🛒 <span class="precio-boton">$ <span class="precio">2500</span></span>
+</button>
+
+      </div>
+    </div>
+    <!-- Producto 4 -->
+    <div class="product" data-price="$2200">
+      <img src="https://drive.google.com/thumbnail?id=1pLuDs5hobY3USvw0bpY1OgO9Pj9hNo4p" alt="Roja">
+      <h3>Roja</h3>
+      <p>Color intensa, actitud dulce y textura que se derrite sin pedir permiso. Es la reina del contraste: fresca y cremosa, suave pero con carácter. Cuando llega, no pasa desapercibida.</p>
+<div class="size-option">
+  <span class="option-label">Tamaño:</span>
+  <select>
+    <option value="2200">Personal: 100 gr.</option>
+    <option value="4000">Dúo: 200 gr.</option>
+    <option value="5700">Trío: 300 gr.</option>
+  </select>
+</div>
+
+<div class="quantity">
+  <span class="quantity-label">Cantidad:</span>
+  <div class="quantity-controls">
+    <button>-</button>
+<input type="number" value="1" min="1" readonly />
+    <button>+</button>
+  </div>
+</div>
+      <div class="actions">
+        <a href="Ensalada Roja.html" class="item-carrusel"><button class="details-btn">Ver detalles</button></a>
+        <button class="cart-btn">
+  🛒 <span class="precio-boton">$ <span class="precio">2200</span></span>
+</button>
+
+      </div>
+    </div>
+    <!-- Producto 5 -->
+    <div class="product" data-price="$4400">
+      <img src="https://drive.google.com/thumbnail?id=1aEsXcTEJd7_9_ks8equswCOTDDzoymXn" alt="Guacamole">
+      <h3>Guacamole</h3>
+      <p>Verde intenso y alma latina. Suave, jugosa y con el sabor fresco de lo simple bien hecho. No es solo una ensalada: es frescura con personalidad.</p>
+<div class="size-option">
+  <span class="option-label">Tamaño:</span>
+  <select>
+    <option value="4400">Personal: 100 gr.</option>
+    <option value="8300">Dúo: 200 gr.</option>
+    <option value="12200">Trío: 300 gr.</option>
+  </select>
+</div>
+
+<div class="quantity">
+  <span class="quantity-label">Cantidad:</span>
+  <div class="quantity-controls">
+    <button>-</button>
+    <input type="number" value="1" min="1" readonly />
+    <button>+</button>
+  </div>
+</div>
+      <div class="actions">
+        <a href="Guacamole.html" class="item-carrusel"><button class="details-btn">Ver detalles</button></a>
+        <button class="cart-btn">
+  🛒 <span class="precio-boton">$ <span class="precio">4400</span></span>
+</button>
+
+      </div>
+    </div>
+    <!-- Producto 6 -->
+    <div class="product" data-price="$2900">
+      <img src="https://drive.google.com/thumbnail?id=13b55jCap_zcV7mJPC7IxRYqGfngc4IPm" alt="Baja en sodio 1">
+      <h3>Baja en sodio 1</h3>
+      <p>Tan ligera como una brisa y tan verde como la vida misma. Esta mezcla fresca baila al ritmo de lo natural, sin excesos ni sobresaltos. Ideal para cuidar el corazón... y de paso, el buen gusto.</p>
+<div class="size-option">
+  <span class="option-label">Tamaño:</span>
+  <select>
+    <option value="2900">Personal: 100 gr.</option>
+    <option value="5400">Dúo: 200 gr.</option>
+    <option value="7800">Trío: 300 gr.</option>
+  </select>
+</div>
+
+<div class="quantity">
+  <span class="quantity-label">Cantidad:</span>
+  <div class="quantity-controls">
+    <button>-</button>
+    <input type="number" value="1" min="1" readonly />
+    <button>+</button>
+  </div>
+</div>
+      <div class="actions">
+        <a href="Ensalada Hiposodica 1.html" class="item-carrusel"><button class="details-btn">Ver detalles</button></a>
+        <button class="cart-btn">
+  🛒 <span class="precio-boton">$ <span class="precio">2500</span></span>
+</button>
+
+      </div>
+    </div>
+    <!-- Producto 7 -->
+    <div class="product" data-price="$2500">
+      <img src="https://drive.google.com/thumbnail?id=17ssULvbja-BC9MzG1wMnt3EY5yfd5abN" alt="Baja en sodio 2">
+      <h3>Baja en sodio 2</h3>
+      <p>Un frescor jugoso que sorprende y relaja. Entre verdes suaves y notas dulces, esta mezcla te hidrata, te nutre y te deja con ganas de repetir. Ligera para el cuerpo, deliciosa para el alma.</p>
+<div class="size-option">
+  <span class="option-label">Tamaño:</span>
+  <select>
+    <option value="2500">Personal: 100 gr.</option>
+    <option value="4600">Dúo: 200 gr.</option>
+    <option value="6700">Trío: 300 gr.</option>
+  </select>
+</div>
+
+<div class="quantity">
+  <span class="quantity-label">Cantidad:</span>
+  <div class="quantity-controls">
+    <button>-</button>
+    <input type="number" value="1" min="1" readonly />
+    <button>+</button>
+  </div>
+</div>
+      <div class="actions">
+        <a href="Ensalada Hiposodica 2.html" class="item-carrusel"><button class="details-btn">Ver detalles</button></a>
+        <button class="cart-btn">
+  🛒 <span class="precio-boton">$ <span class="precio">2500</span></span>
+</button>
+
+      </div>
+    </div>
+    <!-- Producto 8 -->
+    <div class="product" data-price="$4800">
+      <img src="https://drive.google.com/thumbnail?id=1BAk5quZBc9V_ITZHYeSTP5OCpBsZ0U3s" alt="Baja en azucar 1">
+      <h3>Baja en azucar 1</h3>
+      <p>Verde, viva y sin culpas. Esta ensalada es puro equilibrio: crocante, cremosa y con ese toque herbal que refresca cuerpo y mente. Liviana en calorías, poderosa en sabor.</p>
+<div class="size-option">
+  <span class="option-label">Tamaño:</span>
+  <select>
+    <option value="4800">Personal: 100 gr.</option>
+    <option value="9200">Dúo: 200 gr.</option>
+    <option value="13500">Trío: 300 gr.</option>
+  </select>
+</div>
+
+<div class="quantity">
+  <span class="quantity-label">Cantidad:</span>
+  <div class="quantity-controls">
+    <button>-</button>
+    <input type="number" value="1" min="1" readonly />
+    <button>+</button>
+  </div>
+</div>
+      <div class="actions">
+        <a href="Ensalada Hipocalorica 1.html" class="item-carrusel"><button class="details-btn">Ver detalles</button></a>
+        <button class="cart-btn">
+  🛒 <span class="precio-boton">$ <span class="precio">4800</span></span>
+</button>
+
+      </div>
+    </div>
+
+
+      </div>
+    </div>
+<!-- ✅ MODAL AGREGADO AL CARRITO CON BOTONES -->
+<div class="modal" id="modal-agregado">
+  <div class="modal-contenido">
+    <span class="cerrar-modal" data-close="#modal-agregado">&times;</span>
+    <h3>✅ Producto agregado al carrito</h3>
+    <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+      <button id="seguir-comprando" class="btn-modal">Ver más productos</button>
+      <button id="ir-al-pedido" class="btn-comprar">Ir al carrito de compras</button>
+    </div>
+  </div>
+</div>
+  </main>
+ <!-- Pie de pagina -->
+     <footer class="tt-footer">
+  <div class="tt-footer-inner">
+    <div class="tt-footer-top">
+      <div class="tt-footer-brand">
+        <a href="landing-tomate.html"><img src="https://drive.google.com/thumbnail?id=1fM_iYOuVT-tqTnFM2vW6zbgWUkaktxGy" alt="Tómate Tomate"></a>
+        <p>Ensaladas frescas como complemento de tu almuerzo. Ingredientes reales, sabor consciente.</p>
+      </div>
+      <div class="tt-footer-col">
+        <h4>Zona de cobertura</h4>
+        <div style="margin-top:6px;">
+          <span class="zona-tag-sm">San Cristóbal</span>
+          <span class="zona-tag-sm">Altablanca</span>
+          <span class="zona-tag-sm">Santa Teresa</span>
+        </div>
+        <p style="font-size:11px;color:#aaa;margin-top:8px;">Bogotá · UPZ Toberín</p>
+      </div>
+      <div class="tt-footer-col">
+        <h4>Contáctanos</h4>
+        <a href="mailto:clientes.tomatetomate@gmail.com" class="email-link">
+          <i class="fas fa-envelope"></i> clientes.tomatetomate@gmail.com
+        </a>
+        <p style="font-size:12px;color:#aaa;margin-top:4px;">Para alianzas, sugerencias o preguntas generales</p>
+        <h4 style="margin-top:18px;">Síguenos</h4>
+        <div class="social-row">
+          <a href="https://web.facebook.com/tomate.tomate.saludable/" class="soc-icon fb" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/tomate_tomate_saludable" class="soc-icon ig" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://api.whatsapp.com/send/?phone=573196171825" class="soc-icon wa" target="_blank"><i class="fab fa-whatsapp"></i></a>
+         </a>
+        </div>
+      </div>
+    </div>
+    <div class="tt-footer-bottom">
+      <p>© 2026 Tómate Tomate · Todos los derechos reservados</p>
+      <div class="footer-links">
+        <a href="#">Preguntas frecuentes</a>
+        <a href="#">Política de privacidad</a>
+        <a href="#">Términos y condiciones</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <!-- Font Awesome para los íconos de redes sociales -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const productos = document.querySelectorAll(".product");
+  const contador = document.getElementById("contador-pedido");
+
+  productos.forEach(producto => {
+    const selectTamano = producto.querySelector("select");
+    const inputCantidad = producto.querySelector("input[type='number']");
+    const btnIncrementar = producto.querySelector(".quantity-controls button:last-of-type");
+    const btnDecrementar = producto.querySelector(".quantity-controls button:first-of-type");
+    const btnAgregar = producto.querySelector(".cart-btn");
+    const imagenProducto = producto.querySelector("img");
+
+    // Inicializa el precio unitario
+    let precioUnitario = parseInt(selectTamano.value);
+    const precioSpan = btnAgregar.querySelector(".precio");
+
+    function actualizarPrecio() {
+      const cantidad = parseInt(inputCantidad.value);
+      const total = precioUnitario * cantidad;
+      if (!isNaN(total)) {
+        precioSpan.textContent = total.toLocaleString("es-CO", { minimumFractionDigits: 0 });
+      }
+    }
+
+    selectTamano.addEventListener("change", () => {
+      precioUnitario = parseInt(selectTamano.value);
+      actualizarPrecio();
+    });
+
+    btnIncrementar.addEventListener("click", () => {
+      inputCantidad.value = parseInt(inputCantidad.value) + 1;
+      actualizarPrecio();
+    });
+
+    btnDecrementar.addEventListener("click", () => {
+      let cantidad = parseInt(inputCantidad.value);
+      if (cantidad > 1) {
+        inputCantidad.value = cantidad - 1;
+        actualizarPrecio();
+      }
+    });
+
+    btnAgregar.addEventListener("click", () => {
+      const tamañoTexto = selectTamano.options[selectTamano.selectedIndex].text.split(":")[0].trim(); // "Personal", "Dúo", etc.
+      agregarAlPedido(producto, parseInt(inputCantidad.value), tamañoTexto, imagenProducto.src);
+      actualizarContadorPedido();
+      mostrarModal();
+    });
+
+    actualizarPrecio();
+  });
+
+  function agregarAlPedido(producto, cantidad, tamañoTexto, imagen) {
+    const nombreProducto = producto.querySelector("h3").textContent;
+    const precios = {
+      "Personal": 2000,
+      "Dúo": 3800,
+      "Trío": 5600
+    };
+    const precio = precios[tamañoTexto]; // Usamos el nombre del tamaño para sacar el precio
+
+    let pedido = JSON.parse(localStorage.getItem("pedido")) || [];
+    const index = pedido.findIndex(item => item.nombre === nombreProducto && item.tamaño === tamañoTexto);
+
+    if (index !== -1) {
+      pedido[index].cantidad += cantidad;
+    } else {
+      pedido.push({
+        nombre: nombreProducto,
+        tamaño: tamañoTexto,
+        cantidad: cantidad,
+        precio: precio,
+        imagen: imagen
+      });
+    }
+
+    localStorage.setItem("pedido", JSON.stringify(pedido));
+  }
+
+  function actualizarContadorPedido() {
+    let pedido = JSON.parse(localStorage.getItem("pedido")) || [];
+    const totalItems = pedido.reduce((total, item) => total + item.cantidad, 0);
+    contador.textContent = totalItems;
+  }
+
+  function mostrarModal() {
+    const modal = document.getElementById("modal-agregado");
+    if (modal) {
+      modal.style.display = "flex";
+    }
+  }
+
+  document.querySelectorAll(".cerrar-modal").forEach(btn => {
+    btn.addEventListener("click", function () {
+      const modalId = this.getAttribute("data-close");
+      const modal = document.querySelector(modalId);
+      if (modal) modal.style.display = "none";
+    });
+  });
+
+  window.addEventListener("click", function (e) {
+    const modal = document.getElementById("modal-agregado");
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+
+  document.getElementById("ir-al-pedido")?.addEventListener("click", () => {
+    window.location.href = "RP TT V2.html";
+  });
+
+  document.getElementById("seguir-comprando")?.addEventListener("click", () => {
+    const modal = document.getElementById("modal-agregado");
+    if (modal) modal.style.display = "none";
+  });
+
+  actualizarContadorPedido();
+});
+
+  document.getElementById("btn-carrito").addEventListener("click", () => {
+    window.location.href = "RP TT V2.html"; // ⚠️ Cambia esto si tu archivo de resumen tiene otro nombre
+  });
+
+</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const prevButton = document.querySelector('.prev-button');
+            const nextButton = document.querySelector('.next-button');
+            
+            let currentIndex = 0;
+            
+            function showSlide(index) {
+                // Ocultar todos los slides
+                slides.forEach(slide => {
+                    slide.classList.remove('active');
+                });
+                
+                // Mostrar el slide actual
+                slides[index].classList.add('active');
+            }
+            
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % slides.length;
+                showSlide(currentIndex);
+            }
+            
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+                showSlide(currentIndex);
+            }
+            
+            // Configurar los listeners de eventos
+            nextButton.addEventListener('click', nextSlide);
+            prevButton.addEventListener('click', prevSlide);
+            
+            // Auto-reproducción opcional del carrusel
+            // setInterval(nextSlide, 5000);
+        });
+    </script>
+</body>
+</html>
