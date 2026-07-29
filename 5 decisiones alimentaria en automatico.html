@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>5 decisiones alimentarias que tomamos en automático— Tómate Tomate</title>
+<meta name="description" content="Comer es una forma de cuidarnos, pero en medio del día a día, muchas veces lo hacemos sin estar presentes… y eso también duele en el cuerpo.">
+<meta name="author" content="Tómate Tomate">
+
+<!-- Open Graph: previsualización al compartir en redes -->
+<meta property="og:title" content="5 decisiones alimentarias que tomamos en automático — Tómate Tomate">
+<meta property="og:description" content=" Comer es una forma de cuidarnos, pero en medio del día a día, muchas veces lo hacemos sin estar presentes… y eso también duele en el cuerpo.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://tuusuario.github.io/tomate-tomate/articulos/efecto-mariposa.html">
+<meta property="og:image" content="https://tuusuario.github.io/tomate-tomate/img/efecto-mariposa.jpg">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --naranja: #E8520A;
+    --naranja-hover: #C94408;
+    --naranja-light: #FDF0E8;
+    --naranja-mid: #F5A97A;
+    --verde: #40A629;
+    --verde-mid: #2E6B42;
+    --verde-light: #EAF2EC;
+    --rojo: #8B1A1A;
+    --crema: #FAF6F0;
+    --blanco: #FFFFFF;
+    --texto: #1A1208;
+    --texto-mid: #4A3820;
+    --texto-suave: #8A7560;
+    --borde: #EAE0D4;
+    --col-lectura: 680px; /* UX: ~65 chars por línea, óptimo para lectura */
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--crema);
+    color: var(--texto);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ──────────────────────────────────────
+     PROGRESO DE LECTURA
+     UX: el lector sabe cuánto le queda
+  ────────────────────────────────────── */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--naranja), var(--naranja-mid));
+    z-index: 9999;
+    transition: width 0.08s linear;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ──────────────────────────────────────
+     NAV
+     UX: navegación mínima, sin distracciones
+  ────────────────────────────────────── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    background: rgba(250,246,240,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--borde);
+  }
+
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--naranja);
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .nav-logo span { color: var(--verde); font-style: italic; }
+
+  /* UX: breadcrumb para orientación */
+  .nav-breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--texto-suave);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .nav-breadcrumb a { color: var(--texto-suave); text-decoration: none; transition: color 0.2s; }
+  .nav-breadcrumb a:hover { color: var(--naranja); }
+  .nav-breadcrumb .sep { color: var(--borde); }
+  .nav-breadcrumb .current { color: var(--naranja); }
+
+  /* UX: tiempo de lectura visible desde el nav */
+  .nav-reading-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--texto-suave);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 600px) {
+    .nav-breadcrumb { display: none; }
+  }
+
+  /* ──────────────────────────────────────
+     HERO DEL ARTÍCULO
+  ────────────────────────────────────── */
+  .article-hero {
+    background: var(--verde);
+    padding: 3.5rem 1.5rem 3rem;
+    text-align: center;
+  }
+
+  .hero-inner {
+    max-width: var(--col-lectura);
+    margin: 0 auto;
+  }
+
+  .hero-cat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(232,82,10,0.2);
+    border: 1px solid rgba(232,82,10,0.35);
+    color: var(--naranja-mid);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 900;
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+  }
+  .hero-title em { color: var(--naranja-mid); font-style: italic; }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.7);
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  /* UX: metadatos del artículo bien visibles */
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.5);
+  }
+  .meta-item .icon { font-size: 0.9rem; }
+  .meta-sep { color: rgba(255,255,255,0.2); }
+
+  /* ──────────────────────────────────────
+     SHARE — encima del artículo
+     UX: capturar intención antes de leer
+  ────────────────────────────────────── */
+  .share-top {
+    max-width: var(--col-lectura);
+    margin: 0 auto;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--borde);
+  }
+
+  .share-top-text {
+    font-size: 0.82rem;
+    color: var(--texto-suave);
+  }
+.btn-facebook {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #1877F2;
+  color: white;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-facebook:hover { background: #1459b8; transform: translateY(-1px); }
+
+.btn-instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #c13584;
+  color: white;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-instagram:hover { background: #962a68; transform: translateY(-1px); }
+
+
+  /* ──────────────────────────────────────
+     ÍNDICE DE CONTENIDOS
+     UX: orientación y salto rápido
+  ────────────────────────────────────── */
+  .toc-wrap {
+    max-width: var(--col-lectura);
+    margin: 2rem auto 0;
+    padding: 0 1.5rem;
+  }
+
+  .toc {
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-left: 3px solid var(--naranja);
+    border-radius: 6px;
+    padding: 1.2rem 1.5rem;
+  }
+
+  .toc-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--naranja);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .toc-toggle { margin-left: auto; font-size: 0.8rem; transition: transform 0.2s; }
+  .toc.collapsed .toc-toggle { transform: rotate(-90deg); }
+  .toc.collapsed .toc-list { display: none; }
+
+  .toc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .toc-list li a {
+    font-size: 0.88rem;
+    color: var(--texto-mid);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.2rem 0;
+    transition: color 0.2s;
+  }
+  .toc-list li a::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--borde);
+    flex-shrink: 0;
+    transition: background 0.2s, width 0.2s;
+  }
+  .toc-list li a:hover { color: var(--naranja); }
+  .toc-list li a:hover::before { background: var(--naranja); width: 22px; }
+  .toc-list li a.active { color: var(--naranja); font-weight: 500; }
+  .toc-list li a.active::before { background: var(--naranja); }
+
+  /* ──────────────────────────────────────
+     CUERPO DEL ARTÍCULO
+     UX: tipografía y espaciado para lectura larga
+  ────────────────────────────────────── */
+  .article-body {
+    max-width: var(--col-lectura);
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 1rem;
+  }
+
+  /* Párrafos */
+  .article-body p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--texto-mid);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Títulos de sección */
+  .article-body h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--texto);
+    margin: 2.5rem 0 1rem;
+    line-height: 1.25;
+    scroll-margin-top: 80px; /* UX: offset para nav sticky */
+  }
+
+  .article-body h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--verde);
+    margin: 2rem 0 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Destacado / lead */
+  .article-body .lead {
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--texto);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    border-left: 3px solid var(--naranja);
+    padding-left: 1.2rem;
+  }
+
+  /* Cita destacada */
+  .article-body blockquote {
+    margin: 2rem 0;
+    padding: 1.5rem 1.8rem;
+    background: var(--naranja-light);
+    border-left: 4px solid var(--naranja);
+    border-radius: 0 6px 6px 0;
+  }
+  .article-body blockquote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--texto);
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.6;
+  }
+  .article-body blockquote cite {
+    display: block;
+    margin-top: 0.8rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--texto-suave);
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Dato destacado (callout) */
+  .callout {
+    background: var(--verde-light);
+    border: 1px solid rgba(29,74,46,0.2);
+    border-radius: 8px;
+    padding: 1.3rem 1.5rem;
+    margin: 2rem 0;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .callout-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .callout-text {
+    font-size: 0.92rem;
+    color: var(--verde);
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  .callout-text strong { font-weight: 600; }
+
+  /* Separador visual */
+  .article-body hr {
+    border: none;
+    border-top: 1px solid var(--borde);
+    margin: 2.5rem 0;
+  }
+
+  /* Links en texto */
+  .article-body a {
+    color: var(--naranja);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .article-body a:hover { color: var(--naranja-hover); }
+
+  /* ──────────────────────────────────────
+     TAGS DEL ARTÍCULO
+  ────────────────────────────────────── */
+  .article-tags {
+    max-width: var(--col-lectura);
+    margin: 0 auto;
+    padding: 0 1.5rem 2rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .tags-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--texto-suave);
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    font-family: 'DM Mono', monospace;
+    padding: 0.25rem 0.7rem;
+    border-radius: 3px;
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    color: var(--texto-suave);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .tag:hover { border-color: var(--naranja); color: var(--naranja); }
+
+/* ──────────────────────────────────────
+   BLOQUE DE COMENTARIOS
+   UX: conversación integrada naturalmente
+   ────────────────────────────────────── */
+.comments-section {
+  max-width: var(--col-lectura);
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+}
+
+.comments-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.comments-divider::before,
+.comments-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--borde);
+}
+.comments-divider-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--texto-suave);
+  white-space: nowrap;
+}
+
+.comments-card {
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.comments-header {
+  background: #000;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.comments-header-text { flex: 1; min-width: 200px; }
+
+.comments-header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.4rem;
+}
+
+.comments-header p {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+.comments-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.comments-empty {
+  text-align: center;
+  padding: 2rem;
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+  font-family: 'DM Mono', monospace;
+}
+
+/* Tarjetas de comentarios */
+.comment-card {
+  display: flex;
+  gap: 0.8rem;
+  padding: 1rem;
+  background: var(--crema);
+  border-radius: 6px;
+  border: 1px solid var(--borde);
+}
+
+.comment-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--naranja);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  color: white;
+  font-weight: 700;
+  font-family: 'DM Mono', monospace;
+}
+
+.comment-content { flex: 1; }
+
+.comment-author {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--texto);
+  margin-bottom: 0.3rem;
+}
+.comment-author span {
+  font-weight: 300;
+  color: var(--texto-suave);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+}
+
+.comment-text {
+  font-size: 0.88rem;
+  color: var(--texto-mid);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* Formulario */
+.comments-form-section {
+  padding: 1.5rem;
+  border-top: 1px solid var(--borde);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.comments-form-section h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--texto);
+  margin-bottom: 0.2rem;
+}
+
+.comments-form-section input,
+.comments-form-section textarea {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  background: var(--crema);
+  color: var(--texto);
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+  resize: vertical;
+}
+
+.comments-form-section input:focus,
+.comments-form-section textarea:focus {
+  outline: none;
+  border-color: var(--naranja);
+}
+
+.btn-comentar {
+  align-self: flex-start;
+  background: #000;
+  color: white;
+  padding: 0.7rem 1.6rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  font-family: inherit;
+}
+.btn-comentar:hover {
+  background: var(--naranja);
+  transform: translateY(-1px);
+}
+.btn-comentar:disabled {
+  background: var(--borde);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.comments-message {
+  font-size: 0.82rem;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  display: none;
+}
+.comments-message.ok {
+  background: #e6f4ea;
+  color: #2d6a4f;
+  display: block;
+}
+.comments-message.error {
+  background: #fdecea;
+  color: #b71c1c;
+  display: block;
+}
+
+
+  /* ──────────────────────────────────────
+     COMPARTIR AL FINAL
+     UX: segundo momento de conversión
+  ────────────────────────────────────── */
+  .share-bottom {
+    background: var(--naranja);
+    margin: 0;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+  }
+
+  .share-bottom-inner {
+    max-width: var(--col-lectura);
+    margin: 0 auto;
+  }
+
+  .share-bottom h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+
+  .share-bottom p {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .share-btns {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-share-x {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #000;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-share-x:hover { background: #222; }
+
+  .btn-copy-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-copy-link:hover { background: rgba(255,255,255,0.25); }
+
+  /* ──────────────────────────────────────
+     ARTÍCULOS RELACIONADOS
+     UX: retención, siguiente paso claro
+  ────────────────────────────────────── */
+  .related {
+    background: var(--verde);
+    padding: 3rem 1.5rem;
+  }
+
+  .related-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .related-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 0.5rem;
+  }
+
+  .related-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 2rem;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .related-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .related-card:hover {
+    background: rgba(255,255,255,0.12);
+    transform: translateY(-3px);
+  }
+
+  .related-thumb {
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+  }
+
+  .bg-naranja { background: linear-gradient(135deg, #E8520A, #F5A97A); }
+  .bg-rojo    { background: linear-gradient(135deg, #8B1A1A, #C0392B); }
+  .bg-cafe    { background: linear-gradient(135deg, #6B4A1A, #A07840); }
+
+  .related-info {
+    padding: 1rem;
+    flex: 1;
+  }
+
+  .related-cat {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--naranja-mid);
+    margin-bottom: 0.4rem;
+  }
+
+  .related-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+
+  .related-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ──────────────────────────────────────
+     FOOTER
+  ────────────────────────────────────── */
+.tt-footer { background: #FEE7B1; border-top: 5px solid var(--naranja); }
+.tt-footer-inner { max-width: 1200px; margin: 0 auto; padding: 40px 30px 20px; }
+.tt-footer-top { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; padding-bottom: 30px; border-bottom: 1px solid rgba(248,105,64,0.2); }
+.tt-footer-brand img { height: 55px; margin-bottom: 10px; display: block; }
+.tt-footer-brand p { font-size: 13px; color: #666; line-height: 1.6; max-width: 210px; }
+.tt-footer-col h4 { font-size: 11px; font-weight: 700; color: var(--naranja); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
+.tt-footer-col p, .tt-footer-col li { font-size: 13px; color: #555; line-height: 1.9; list-style: none; }
+.tt-footer-col ul { padding: 0; }
+.zona-tag-sm { display: inline-block; background: var(--naranja); color: white; font-size: 11px; padding: 3px 10px; border-radius: 20px; margin: 2px 2px 2px 0; font-weight: 600; }
+.email-link { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; text-decoration: none; margin-bottom: 6px; transition: color 0.2s; }
+.email-link:hover { color: var(--naranja); }
+.email-link i { color: var(--naranja); width: 16px; }
+.social-row { display: flex; gap: 8px; margin-top: 10px; }
+.soc-icon { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 14px; transition: transform 0.2s, opacity 0.2s; }
+.soc-icon:hover { transform: scale(1.1); opacity: 0.9; }
+.soc-icon.fb { background: #3b5998; }
+.soc-icon.ig { background: #c13584; }
+.soc-icon.wa { background: #25D366; }
+.soc-icon.th { background: #0a0a0a; }
+.tt-footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 18px; flex-wrap: wrap; gap: 10px; }
+.tt-footer-bottom p { font-size: 12px; color: #999; }
+.footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.footer-links a { font-size: 12px; color: #999; text-decoration: none; }
+.footer-links a:hover { color: var(--naranja); }
+ 
+@media (max-width: 768px) {
+  .tt-footer-top { grid-template-columns: 1fr; gap: 24px; }
+  .tt-footer-brand p { max-width: 100%; }
+  .tt-footer-bottom { flex-direction: column; align-items: center; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tt-footer-top { grid-template-columns: 1fr 1fr; }
+  .tt-footer-brand { grid-column: 1 / -1; }
+}
+
+  /* ──────────────────────────────────────
+     RESPONSIVE
+  ────────────────────────────────────── */
+  @media (max-width: 760px) {
+    .related-grid { grid-template-columns: 1fr; }
+    .comments-header { flex-direction: column; }
+    .btn-x-large { width: 100%; justify-content: center; }
+  }
+
+  @media (max-width: 500px) {
+    .article-body p { font-size: 1rem; }
+    .article-body h2 { font-size: 1.3rem; }
+    .share-btns { flex-direction: column; align-items: center; }
+    .btn-share-x, .btn-copy-link { width: 100%; justify-content: center; }
+    .hero-meta { gap: 0.8rem; }
+    .meta-sep { display: none; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- PROGRESO DE LECTURA -->
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+          <div id="tt-logo-container" title="Logo" class="tt-logo-container">
+            <a id="i02g1" title="Tómate Tomate" href="landing-tomate.html"><img src="https://drive.google.com/thumbnail?id=19u00Nz1w-MgIUmQbGZnLZ_uyMq1hmgaj" alt="Tómate Tomate" id="ixz46" class="tt-logo"/>
+              </div></a>
+    <nav class="nav-breadcrumb">
+      <a href="tomate-tomate-listado_articulos.html">Artículos</a>
+      <span class="sep">›</span>
+      <span class="current">Psicología y alimentación</span>
+    </nav>
+    <span class="nav-reading-time">⏱ 14 min lectura</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="article-hero">
+  <div class="hero-inner">
+    <span class="hero-cat"> 🧠 Psicología y Alimentación</span>
+    <h1 class="hero-title">5 decisiones alimentarias que tomamos en automático <br><em>(y cómo hacerlas un poco más conscientes)</em></h1>
+    <p class="hero-subtitle"> Comer es una forma de cuidarnos, pero en medio del día a día, muchas veces lo hacemos sin estar presentes… y eso también duele en el cuerpo.</p>
+    <div class="hero-meta">
+      <span class="meta-item"><span class="icon">📅</span> 24 Jul 2026</span>
+      <span class="meta-sep">·</span>
+      <span class="meta-item"><span class="icon">⏱</span> 14 min lectura</span>
+      <span class="meta-sep">·</span>
+      <span class="meta-item"><span class="icon">✍️</span> Tómate Tomate</span>
+    </div>
+  </div>
+</header>
+
+<!-- SHARE TOP -->
+<div class="share-top">
+  <p class="share-top-text">¿Te parece interesante? Compártelo antes de leer 🍅</p>
+<a href="https://www.facebook.com/sharer/sharer.php?u=TU-URL" target="_blank" class="btn-facebook">
+  📘 Facebook
+</a>
+<a href="https://www.instagram.com" target="_blank" class="btn-instagram">
+  📸 Instagram
+</a>
+</div>
+
+<!-- ÍNDICE -->
+<div class="toc-wrap">
+  <div class="toc" id="toc">
+    <div class="toc-title" id="tocToggle">
+      📋 Contenido del artículo
+      <span class="toc-toggle">▾</span>
+    </div>
+    <ul class="toc-list">  
+      <li><a href="#ComerDistracción" id="toc-ComerDistracción">Comer con distracciones</a></li>
+      <li><a href="#ComerRapido" id="toc-ComerRapido">Comer rápido o masticar poco</a></li>
+      <li><a href="#ComerEstres" id="toc-ComerEstres"> Comer por estrés, emoción o aburrimiento</a></li>
+      <li><a href="#AtraconesComida" id="toc-AtraconesComida">Terminar todo lo que hay en el plato sin considerar las cantidades necesarias</a></li>
+      <li><a href="#LlenuraVsSatisfacción" id="toc-LlenuraVsSatisfacción">Comer hasta sentirse lleno en lugar de satisfecho</a></li>
+      <li><a href="#conclusion" id="toc-conclusion">Conclusión</a></li>
+      <li><a href="#referencias" id="toc-referencias">Referencias</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- CUERPO DEL ARTÍCULO -->
+<article class="article-body">
+
+  <p class="lead">
+Diversas investigaciones han demostrado que la alimentación consciente puede ayudar a tratar distintos trastornos alimentarios, como los atracones o el consumo excesivo de calorías, además de contribuir al control del peso. También se ha encontrado que el estrés disminuye cuando las personas se toman el tiempo para comer de manera consciente: relajándose, estando presentes y dejando de lado, aunque sea por un momento, sus preocupaciones.
+  </p>
+
+  <p>
+    Sin embargo, en la práctica, nuestras decisiones alimentarias rara vez son tan conscientes como creemos. Muchas veces comemos en automático: por aburrimiento, con prisa o mientras hacemos otras actividades. Aunque tomar decisiones sobre qué comer implica un gasto de recursos cognitivos y de autorregulación, lo cierto es que a lo largo del día estamos expuestos a una gran cantidad de estímulos e interrupciones que facilitan que estas decisiones se vuelvan inconscientes. De hecho, se estima que una persona toma alrededor de 200 decisiones relacionadas con la alimentación cada día, muchas de ellas sin siquiera darse cuenta (Bublitz, Peracchio, & Block, 2010). </p>
+  <p>
+Existen varios factores que favorecen esta desconexión con la forma en que comemos. Entre los más comunes están: comer con distracciones, hacerlo demasiado rápido o masticar poco, comer en respuesta al estrés, las emociones o el aburrimiento, terminar todo lo que hay en el plato sin considerar las cantidades necesarias y, finalmente, comer hasta sentirse lleno en lugar de satisfecho, ignorando las señales del propio cuerpo.
+  </p>
+  <h2 id="ComerDistracción"> Comer con distracciones</h2>
+  <p>
+    Uno de los principales distractores actuales es el uso de pantallas. Cuando las personas se sientan a comer, su atención suele estar puesta en el celular, redes sociales o contenido digital diseñado para ser altamente entretenido y captar el interés. El estudio de Lyzwinski et al., del 2019 encontró que las aplicaciones más utilizadas son aquellas que ofrecen contenidos relevantes, divertidos y estimulantes, como ocurre con las redes sociales. En contraste, las aplicaciones diseñadas para fomentar la alimentación consciente no suelen incluir estos elementos, lo que dificulta su uso sostenido: carecen de sistemas de recompensa y de ejercicios prácticos aplicables a la vida diaria, por lo que es poco probable que los usuarios las mantengan en el tiempo.
+  </p>
+  <h2 id="ComerRapido"> Comer rápido o masticar poco</h2>
+  <p>
+Comer de forma consciente implica algo mucho más simple —y a la vez más exigente—: prestar atención. Los estudios sugieren que esto requiere involucrar los cinco sentidos en el acto de comer. Ver los alimentos, percibir sus aromas, saborear, escuchar y sentir las texturas permite estar realmente presente en la experiencia. Además, implica comer más despacio. Cuando esto no ocurre, la alimentación se vuelve automática y la experiencia de comer pierde su valor. Por eso, hábitos como comer rápido o masticar poco son considerados errores frecuentes que nos alejan de una alimentación consciente (Kabat-Zinn, 2014; Somov, 2008; Eating Disorders Foundation of Victoria, 2014). </p>
+  <h2 id="ComerEstres"> Comer por estrés, emoción o aburrimiento</h2>
+  <p>
+El estrés también juega un papel clave. Se ha convertido en uno de los principales determinantes de una conducta alimentaria poco saludable. En este contexto, la alimentación consciente puede ser una herramienta importante, ya que al involucrar los sentidos y centrar la atención en la experiencia de comer, permite diferenciar sabores, texturas y sensaciones, lo que mejora la relación con la comida. Además, como lo respaldan varias investigaciones, este enfoque contribuye a reducir el estrés al promover un estado de mayor presencia y relajación (Lyzwinski et al., 2019; Adam & Epel, 2007; Lyzwinski et al., 2018).  </p>
+
+  <h2 id="AtraconesComida"> Terminar todo lo que hay en el plato sin considerar las cantidades necesarias</h2>
+  <p>
+Otro comportamiento común es terminar todo lo que hay en el plato sin considerar las necesidades reales del cuerpo. Esta conducta está influenciada por factores psicológicos, físicos y sociales que pueden afectar la salud tanto física como emocional. La alta palatabilidad de algunos alimentos activa respuestas en el cerebro —particularmente en el hipotálamo— que van más allá de la regulación del hambre y la saciedad, vinculándose con el placer inmediato. Esto puede generar una relación más impulsiva o incluso compulsiva con la comida (Aizpún & Fernández 2014).
+</p>
+  <h2 id="LlenuraVsSatisfacción"> Comer hasta sentirse lleno en lugar de satisfecho </h2>
+  <p>
+A esto se suman otros factores como el estrés ambiental, la ansiedad, patrones de aprendizaje poco saludables, baja tolerancia a la frustración o alteraciones en el sueño, que también favorecen el consumo compulsivo. Todo esto se relaciona con un último punto clave: muchas personas no comen hasta sentirse satisfechas, sino hasta sentirse llenas, ignorando las señales naturales del cuerpo sobre cuánto necesitan realmente (Aizpún & Fernández, 2014).
+</p>
+  <blockquote>
+    <p> En conjunto, estas decisiones automáticas hacen que seamos más vulnerables a las señales del entorno: comerciales, sociales e incluso personales. Vivimos en un contexto donde abundan opciones de alimentos poco saludables, accesibles de forma inmediata y a bajo costo. En ese escenario, esos pequeños “gustos” del día —como un ponqué acompañado de un café con azúcar— pueden aumentar momentáneamente la sensación de bienestar o felicidad del consumidor, lo que refuerza estos patrones de consumo (Bublitz, Peracchio, & Block, 2010).
+</p>
+  </blockquote>
+  <p>
+</p>
+<h2 id="conclusion"> Conclusión</h2>
+<p>Comer no es solo una decisión racional. Es un comportamiento atravesado por hábitos, emociones, estímulos del entorno y procesos automáticos que, en muchos casos, pasan desapercibidos. </p>
+<p>A lo largo del día, tomamos decenas —incluso cientos— de decisiones relacionadas con la alimentación sin ser plenamente conscientes de ellas. Desde comer frente a una pantalla hasta terminar el plato sin cuestionarlo, muchas de estas acciones no responden a lo que realmente necesitamos, sino a dinámicas aprendidas, al contexto o a respuestas automáticas del cuerpo y la mente. </p>
+<p>Por eso, más que buscar una alimentación “perfecta”, el reto está en hacer visibles esos momentos automáticos. Pequeños cambios, como reducir las distracciones, comer más despacio o prestar atención a las señales del cuerpo, pueden marcar una diferencia significativa en la forma en que nos relacionamos con la comida. </p>
+<p>La alimentación consciente no se trata de hacerlo todo bien, sino de empezar a notar. De pasar del piloto automático a la elección, aunque sea en pequeñas decisiones cotidianas. </p>
+<p>Porque al final, comer mejor no siempre empieza con saber más… sino con estar más presentes. </p>
+
+  <div class="callout">
+    <span class="callout-icon">💡</span>
+    <p class="callout-text"><strong>Para reflexionar:</strong> ¿Cuántas de las decisiones que tomas al comer realmente las eliges… y cuántas simplemente ocurren en automático?
+</p>
+  </div>
+
+  <h2 id="referencias">Referencias</h2>
+  <p>Adam, T. C., & Epel, E. S. (2007). Stress, eating and the reward system. Physiology & behavior, 91(4), 449-458.  </p>
+  <p>Aizpún Marcitllach, A., & Fernández de Gamboa Aguinaga, Constanza. (2014). La Terapia de Grupo en un caso de obesidad. [Group Therapy in a Case of Obesity] Clínica Contemporánea, 5(1), 41-51. https://ezproxy.uniminuto.edu/login?url=https://www.proquest.com/scholarly-journals/la-terapia-de-grupo-en-un-caso-obesidad/docview/2477264705/se-2  </p>
+  <p>Bublitz, M. G., Peracchio, L. A., & Block, L. G. (2010). Why did I eat that? Perspectives on food decision making and dietary restraint. Journal of Consumer Psychology (John Wiley & Sons, Inc. ), 20(3), 239–258. https://doi-org.ezproxy.uniminuto.edu/10.1016/j.jcps.2010.06.008  </p>
+  <p>Eating Disorders Foundation of Victoria. (2014, enero 4). Mindful eating. Eating Disorders Victoria. https://eatingdisorders.org.au/wp-content/uploads/2019/04/EDV-Mindful-eating.pdf  </p>
+  <p>Kabat-Zinn, J. (2014). Mindful_Freemium_TIME. https://www.mindful.org/content/uploads/Mindful_Freemium_TIME.pdf  </p>
+  <p>Lyzwinski, L., Caffery, L., Bambling, M., & Edirippulige, S. (2018). University students’ perspectives on mindfulness and mHealth: a qualitative exploratory study. American Journal of Health Education, 49(6), 341-353.  </p>
+  <p>Lyzwinski, L. N., Edirippulige, S., Caffery, L., & Bambling, M. (2019). Mindful Eating Mobile Health Apps: Review and Appraisal. Journal of Medical Internet Research, 21(8), N.PAG. https://doi-org.ezproxy.uniminuto.edu/10.2196/12820</p>
+  <p>Somov, P. G. (2008). Eating the moment: 141 mindful practices to overcome overeating one meal at a time. New Harbinger Publications.  </p>
+  
+</article>
+
+<!-- TAGS -->
+<div class="article-tags">
+  <span class="tags-label">Temas:</span>
+  <a href="#" class="tag">#alimentación-conciente</a>
+  <a href="#" class="tag">#Salud</a>
+  <a href="#" class="tag">#reducción-estres</a>
+  <a href="#" class="tag">#alimentación</a>
+  <a href="#" class="tag">#psicología</a>
+</div>
+
+<!-- Comentarios -->
+<div class="comments-section">
+  <div class="comments-divider">
+    <span class="comments-divider-label">Conversación</span>
+  </div>
+
+  <div class="comments-card">
+
+    <!-- HEADER -->
+    <div class="comments-header">
+      <div class="comments-header-text">
+        <h3>¿Qué piensas?</h3>
+        <p>Tu nombre es opcional. Los comentarios se aprueban automáticamente si cumplen las normas básicas.</p>
+      </div>
+    </div>
+
+    <!-- LISTA DE COMENTARIOS -->
+    <div class="comments-body" id="comments-list">
+      <p class="comments-empty">Cargando comentarios...</p>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="comments-form-section">
+      <h4>Deja tu comentario</h4>
+      <input
+        type="text"
+        id="comment-name"
+        placeholder="Tu nombre (opcional)"
+        maxlength="50"
+      />
+      <textarea
+        id="comment-text"
+        placeholder="¿Qué opinas? (mínimo 20 caracteres)"
+        rows="4"
+        maxlength="1000"
+      ></textarea>
+      <button class="btn-comentar" id="btn-enviar" onclick="enviarComentario()">
+        Comentar
+      </button>
+      <p class="comments-message" id="comments-message"></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- SHARE BOTTOM -->
+<div class="share-bottom">
+  <div class="share-bottom-inner">
+    <h3>¿Te gustó este artículo?</h3>
+    <p>Compártelo con alguien a quien le importe lo que come y lo que consume.</p>
+    <div class="share-btns">
+      <a href="https://www.facebook.com/sharer/sharer.php?u=TU-URL" target="_blank" rel="noopener" class="btn-share-x" style="background:#1877F2;">
+  📘 Facebook
+</a>
+<a href="https://www.instagram.com/sharer/sharer.php?u=TU-URL" target="_blank" rel="noopener" class="btn-share-x" style="background:#c13584;">
+  📸 Instagram
+</a>
+      <button class="btn-copy-link" id="copyBtn" onclick="copyLink()">
+        🔗 Copiar enlace
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ARTÍCULOS PUBLICADOS -->
+<section class="related">
+  <div class="related-inner">
+    <p class="related-label">Sigue leyendo</p>
+    <h2 class="related-title">Artículos publicados</h2>
+    <div class="related-grid">
+      <a href="comer bien_no hacemos.html" class="related-card">
+        <div class="related-thumb bg-naranja">🍔</div>
+        <div class="related-info">
+          <p class="related-cat">Marketing Social</p>
+          <h3 class="related-card-title">¿Por qué sabemos qué es “comer bien” pero no lo hacemos?</h3>
+          <p class="related-meta">10 min · 24 Jul 2026</p>
+        </div>
+      </a>
+      <a href="Querer consumo sostenible pero no.html" class="related-card">
+        <div class="related-thumb bg-rojo">🌲</div>
+        <div class="related-info">
+          <p class="related-cat">Eco Consciencia</p>
+          <h3 class="related-card-title">Por qué queremos consumir de forma sostenible, pero no lo hacemos</h3>
+          <p class="related-meta">12 min · 24 Jul 2026</p>
+        </div>
+      </a>
+      <a href="Industria Comer sano y salud mental.html" class="related-card">
+        <div class="related-thumb bg-cafe">🥦</div>
+        <div class="related-info">
+          <p class="related-cat">Marketing Social</p>
+          <h3 class="related-card-title">La industria del “comer sano”: cuándo ayuda y cuándo daña nuestra salud mental</h3>
+          <p class="related-meta">11 min · 24 Jul 2026</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+     <footer class="tt-footer">
+  <div class="tt-footer-inner">
+    <div class="tt-footer-top">
+      <div class="tt-footer-brand">
+        <a href="landing-tomate.html"><img src="https://drive.google.com/thumbnail?id=1fM_iYOuVT-tqTnFM2vW6zbgWUkaktxGy" alt="Tómate Tomate"></a>
+        <p>Ensaladas frescas como complemento de tu almuerzo. Ingredientes reales, sabor consciente.</p>
+      </div>
+      <div class="tt-footer-col">
+        <h4>Zona de cobertura</h4>
+        <div style="margin-top:6px;">
+          <span class="zona-tag-sm">San Cristóbal</span>
+          <span class="zona-tag-sm">Altablanca</span>
+          <span class="zona-tag-sm">Santa Teresa</span>
+        </div>
+        <p style="font-size:11px;color:#aaa;margin-top:8px;">Bogotá · UPZ Toberín</p>
+      </div>
+      <div class="tt-footer-col">
+        <h4>Contáctanos</h4>
+        <a href="mailto:clientes.tomatetomate@gmail.com" class="email-link">
+          <i class="fas fa-envelope"></i> clientes.tomatetomate@gmail.com
+        </a>
+        <p style="font-size:12px;color:#aaa;margin-top:4px;">Para alianzas, sugerencias o preguntas generales</p>
+        <h4 style="margin-top:18px;">Síguenos</h4>
+        <div class="social-row">
+          <a href="https://web.facebook.com/tomate.tomate.saludable/" class="soc-icon fb" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/tomate_tomate_saludable" class="soc-icon ig" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://api.whatsapp.com/send/?phone=573196171825" class="soc-icon wa" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="tt-footer-bottom">
+      <p>© 2026 Tómate Tomate · Todos los derechos reservados</p>
+      <div class="footer-links">
+        <a href="#">Preguntas frecuentes</a>
+        <a href="#">Política de privacidad</a>
+        <a href="#">Términos y condiciones</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script>
+  // ── BARRA DE PROGRESO ──
+  const progressBar = document.getElementById('progress-bar');
+  const article = document.querySelector('.article-body');
+
+  window.addEventListener('scroll', () => {
+    const articleTop = article.offsetTop;
+    const articleHeight = article.offsetHeight;
+    const scrolled = window.scrollY - articleTop;
+    const percent = Math.min(Math.max((scrolled / articleHeight) * 100, 0), 100);
+    progressBar.style.width = percent + '%';
+  });
+
+  // ── ÍNDICE COLAPSABLE ──
+  document.getElementById('tocToggle').addEventListener('click', () => {
+    document.getElementById('toc').classList.toggle('collapsed');
+  });
+
+  // ── RESALTAR SECCIÓN ACTIVA EN EL ÍNDICE ──
+  const sections = document.querySelectorAll('.article-body h2[id]');
+  const tocLinks = document.querySelectorAll('.toc-list a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tocLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.toc-list a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  // ── COPIAR ENLACE ──
+  function copyLink() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '✅ ¡Enlace copiado!';
+      setTimeout(() => btn.textContent = '🔗 Copiar enlace', 2000);
+    });
+  }
+
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwaVXRTvshEKuszV9_aEGC3hVGcRNacTe4PcrQTlHG4DV_rrVoLzcLzy3DhJbQoTXPm/exec";
+  const PAGE_ID    = "tomate-tomate-articulo";
+
+  /* ── Cargar comentarios ── */
+  async function cargarComentarios() {
+    const lista = document.getElementById("comments-list");
+    try {
+      const res  = await fetch(SCRIPT_URL + "?pagina=" + PAGE_ID);
+      const data = await res.json();
+
+      const filtrados = data.filter(c => c.articulo === PAGE_ID);
+
+      if (filtrados.length === 0) {
+        lista.innerHTML = '<p class="comments-empty">Sé el primero en comentar.</p>';
+        return;
+      }
+
+      lista.innerHTML = filtrados.map(c => {
+        const inicial = (c.nombre || "A")[0].toUpperCase();
+        const fecha   = new Date(c.fecha).toLocaleDateString("es-CO", {
+          day: "numeric", month: "short", year: "numeric"
+        });
+        return `
+          <div class="comment-card">
+            <div class="comment-avatar">${inicial}</div>
+            <div class="comment-content">
+              <p class="comment-author">
+                ${c.nombre || "Anónimo"}
+                <span>· ${fecha}</span>
+              </p>
+              <p class="comment-text">${c.comentario}</p>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+    } catch (err) {
+      lista.innerHTML = '<p class="comments-empty">No se pudieron cargar los comentarios.</p>';
+    }
+  }
+
+  /* ── Enviar comentario ── */
+  async function enviarComentario() {
+    const nombre     = document.getElementById("comment-name").value.trim();
+    const comentario = document.getElementById("comment-text").value.trim();
+    const btn        = document.getElementById("btn-enviar");
+    const msg        = document.getElementById("comments-message");
+
+    msg.className = "comments-message";
+    msg.textContent = "";
+
+    if (comentario.length < 20) {
+      msg.textContent = "El comentario debe tener al menos 20 caracteres.";
+      msg.className = "comments-message error";
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Enviando...";
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre:     nombre || "Anónimo",
+          comentario: comentario,
+          articulo:   PAGE_ID
+        })
+      });
+
+      msg.textContent = "¡Comentario enviado! Aparecerá en unos momentos si cumple las normas.";
+      msg.className = "comments-message ok";
+      document.getElementById("comment-name").value = "";
+      document.getElementById("comment-text").value = "";
+
+      setTimeout(cargarComentarios, 4000);
+
+    } catch (err) {
+      msg.textContent = "Hubo un error al enviar. Intenta de nuevo.";
+      msg.className = "comments-message error";
+    }
+
+    btn.disabled = false;
+    btn.textContent = "Comentar";
+  }
+
+  /* ── Iniciar ── */
+  cargarComentarios();
+</script>
+
+</body>
+</html>
